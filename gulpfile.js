@@ -41,3 +41,5 @@ gulp.task('lint', function() {
 gulp.task('ci:lint', function() {
   return lint(true);
 });
+
+gulp.task('ci', ['ci:lint']);
