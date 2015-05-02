@@ -5,7 +5,6 @@ Displays a bootstrap confirmation popover
 
 ### TODO
 * Add unit tests
-* Push to travis
 * Write docs
 * Build script
 * Release 0.1.0
