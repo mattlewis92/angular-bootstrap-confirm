@@ -24,10 +24,10 @@
                 '<p ng-bind-html="vm.message"></p>',
                 '<div class="row" style="width: 250px">',
                   '<div class="col-xs-6">',
-                    '<button class="btn btn-danger btn-block" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || \'Confirm\'"></button>',
+                    '<button class="btn btn-{{ vm.confirmButtonType || \'danger\' }} btn-block" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || \'Confirm\'"></button>',
                   '</div>',
                   '<div class="col-xs-6">',
-                    '<button class="btn btn-default btn-block" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || \'Cancel\'"></button>',
+                    '<button class="btn btn-{{ vm.cancelButtonType || \'default\' }} btn-block" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || \'Cancel\'"></button>',
                   '</div>',
                 '</div>',
               '</div>',
@@ -94,7 +94,9 @@
           title: '@',
           placement: '@',
           onConfirm: '&',
-          onCancel: '&'
+          onCancel: '&',
+          confirmButtonType: '@',
+          cancelButtonType: '@'
         }
       };
     });

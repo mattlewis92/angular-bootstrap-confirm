@@ -68,6 +68,8 @@
               placement="{{ placement }}"
               on-confirm="vm.confirmClicked = true"
               on-cancel="vm.cancelClicked = true"
+              confirm-button-type="danger"
+              cancel-button-type="default"
               ng-click="vm.confirmClicked = false; vm.cancelClicked = false">
               Show on {{ placement }}
             </button>
