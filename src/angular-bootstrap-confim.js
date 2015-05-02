@@ -19,7 +19,7 @@
           '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
           '<div class="popover-content">',
             '<p ng-bind-html="vm.message"></p>',
-            '<div class="row" style="width: 250px">',
+            '<div class="row">',
               '<div class="col-xs-6">',
                 '<button class="btn btn-{{ vm.confirmButtonType || \'danger\' }} btn-block" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || \'Confirm\'"></button>',
               '</div>',
