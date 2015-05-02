@@ -29,10 +29,22 @@
     "eslint": "~0.20.0",
     "eslint-plugin-angular": "0.0.7",
     "gulp": "~3.8.11",
+    "gulp-angular-filesort": "~1.1.1",
     "gulp-connect": "~2.2.0",
     "gulp-eslint": "~0.11.1",
+    "gulp-filter": "~2.0.2",
+    "gulp-karma": "0.0.4",
     "gulp-livereload": "~3.8.0",
     "gulp-load-plugins": "~0.10.0",
-    "open": "0.0.5"
+    "karma": "~0.12.31",
+    "karma-chai-plugins": "~0.5.0",
+    "karma-chrome-launcher": "~0.1.8",
+    "karma-mocha": "~0.1.10",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "main-bower-files": "~2.7.0",
+    "mocha": "~2.2.4",
+    "open": "0.0.5",
+    "run-sequence": "~1.1.0",
+    "stream-series": "~0.1.1"
   }
 }
