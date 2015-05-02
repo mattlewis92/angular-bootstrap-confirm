@@ -1,0 +1,35 @@
+{
+  "name": "angular-bootstrap-confirm",
+  "version": "0.0.0",
+  "description": "Displays a bootstrap confirmation popover when clicking the given element.",
+  "main": "src/angular-bootstrap-confirm.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "gulp test:src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattlewis92/angular-bootstrap-confirm.git"
+  },
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "popover",
+    "confirm"
+  ],
+  "author": "Matt Lewis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattlewis92/angular-bootstrap-confirm/issues"
+  },
+  "homepage": "https://github.com/mattlewis92/angular-bootstrap-confirm#readme",
+  "devDependencies": {
+    "gulp": "~3.8.11",
+    "gulp-connect": "~2.2.0",
+    "gulp-livereload": "~3.8.0",
+    "gulp-load-plugins": "~0.10.0",
+    "open": "0.0.5"
+  }
+}
