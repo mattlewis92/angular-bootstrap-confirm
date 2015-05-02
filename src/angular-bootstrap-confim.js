@@ -19,17 +19,17 @@
       $scope.triggerSelector = '#' + $element.attr('id');
 
       var template = [
-        '<div class="popover {{ vm.placement }}" off-click="vm.hidePopover()" off-click-filter="triggerSelector">',
+        '<div class="popover" ng-class="vm.placement" off-click="vm.hidePopover()" off-click-filter="triggerSelector">',
           '<div class="arrow"></div>',
           '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
           '<div class="popover-content">',
             '<p ng-bind-html="vm.message"></p>',
             '<div class="row">',
               '<div class="col-xs-6">',
-                '<button class="btn btn-{{ vm.confirmButtonType || \'danger\' }} btn-block" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || \'Confirm\'"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + vm.confirmButtonType || \'danger\'" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || \'Confirm\'"></button>',
               '</div>',
               '<div class="col-xs-6">',
-                '<button class="btn btn-{{ vm.cancelButtonType || \'default\' }} btn-block" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || \'Cancel\'"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + vm.cancelButtonType || \'default\'" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || \'Cancel\'"></button>',
               '</div>',
             '</div>',
           '</div>',
