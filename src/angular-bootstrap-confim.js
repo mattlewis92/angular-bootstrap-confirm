@@ -81,7 +81,7 @@
         $element.unbind('click', togglePopover);
         $window.removeEventListener('resize', positionPopover);
       });
-      
+
     })
     .directive('mwlConfirm', function() {
 

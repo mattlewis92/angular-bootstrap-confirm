@@ -9,3 +9,4 @@ Displays a bootstrap confirmation popover
 * Write docs
 * Build script
 * Release 0.1.0
+* Publish to bower
