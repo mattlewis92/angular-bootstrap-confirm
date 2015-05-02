@@ -5,7 +5,12 @@
     "no-loop-func": false
   },
   "globals": {
-    "window": true,
     "angular": true
-  }
+  },
+  "plugins": [
+    "angular"
+  ],
+  "envs": [
+    "browser"
+  ]
 }

@@ -15,9 +15,29 @@ gulp.task('server', function() {
 gulp.task('watch', ['server'], function() {
   $.livereload.listen();
   //gulp.start('test:watch');
-  //gulp.watch('src/**/*.js', ['lint']);
+  gulp.watch('src/angular-bootstrap-confirm.js', ['lint']);
   gulp.watch([
     './index.html',
     './src/**/*.js'
   ]).on('change', $.livereload.changed);
+});
+
+function lint(failOnError) {
+  var stream = gulp.src('src/angular-bootstrap-confirm.js')
+    .pipe($.eslint())
+    .pipe($.eslint.format());
+
+  if (failOnError) {
+    return stream.pipe($.eslint.failOnError());
+  } else {
+    return stream;
+  }
+}
+
+gulp.task('lint', function() {
+  return lint();
+});
+
+gulp.task('ci:lint', function() {
+  return lint(true);
 });

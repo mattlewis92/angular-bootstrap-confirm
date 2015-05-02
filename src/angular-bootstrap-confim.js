@@ -1,5 +1,7 @@
 (function(angular) {
 
+  'use strict';
+
   var idIncrementor = 0;
 
   angular
@@ -9,14 +11,14 @@
       'offClick'
     ])
 
-    .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $timeout, $document, $window, $position) {
+    .controller('PopoverConfirmController', function($scope, $element, $compile, $timeout, $document, $window, $position) {
       var vm = this;
       vm.placement = vm.placement || 'top';
 
       if (!$element.attr('id')) {
         $element.attr('id', 'popover-trigger-' + idIncrementor++);
       }
-      $scope.triggerSelector = '#' + $element.attr('id');
+      $scope.triggerSelector = '#' + $element.attr('id'); //eslint-disable-line angular/ng_controller_as
 
       var template = [
         '<div class="popover" ng-class="vm.placement" off-click="vm.hidePopover()" off-click-filter="triggerSelector">',
@@ -93,7 +95,7 @@
 
       return {
         restrict: 'EA',
-        controller: 'PopoverConfirmCtrl as vm',
+        controller: 'PopoverConfirmController as vm',
         bindToController: true,
         scope: {
           confirmText: '@',
