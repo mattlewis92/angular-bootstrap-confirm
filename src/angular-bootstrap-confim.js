@@ -1,7 +1,7 @@
 (function(angular) {
 
   angular
-    .module('mwl.confirm', ['ui.bootstrap.position', 'offClick'])
+    .module('mwl.confirm', ['ngSanitize', 'ui.bootstrap.position', 'offClick'])
     .directive('mwlConfirm', function() {
 
       var idIncrementor = 0;
@@ -9,7 +9,7 @@
         restrict: 'A',
         controller: function($scope, $element, $compile, $timeout, $document, $window, $position) {
           var vm = this;
-          vm.placement = $scope.placement || 'top';
+          vm.placement = vm.placement || 'top';
 
           if (!$element.attr('id')) {
             $element.attr('id', 'popover-trigger-' + idIncrementor++);
@@ -19,15 +19,15 @@
           var template = [
             '<div class="popover {{ vm.placement }}" off-click="vm.hidePopover()" off-click-filter="triggerSelector">',
               '<div class="arrow"></div>',
-              '<h3 class="popover-title">{{ title }}</h3>',
+              '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
               '<div class="popover-content">',
-                '<p>{{ message }}</p>',
+                '<p ng-bind-html="vm.message"></p>',
                 '<div class="row" style="width: 250px">',
                   '<div class="col-xs-6">',
-                    '<button class="btn btn-danger btn-block" ng-click="onConfirm(); vm.hidePopover()">{{ confirmText || \'Confirm\' }}</button>',
+                    '<button class="btn btn-danger btn-block" ng-click="vm.onConfirm(); vm.hidePopover()">{{ vm.confirmText || \'Confirm\' }}</button>',
                   '</div>',
                   '<div class="col-xs-6">',
-                    '<button class="btn btn-default btn-block" ng-click="onCancel(); vm.hidePopover()">{{ cancelText || \'Cancel\' }}</button>',
+                    '<button class="btn btn-default btn-block" ng-click="vm.onCancel(); vm.hidePopover()">{{ vm.cancelText || \'Cancel\' }}</button>',
                   '</div>',
                 '</div>',
               '</div>',
@@ -86,6 +86,7 @@
           });
         },
         controllerAs: 'vm',
+        bindToController: true,
         scope: {
           confirmText: '@',
           cancelText: '@',
