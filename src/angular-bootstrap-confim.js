@@ -3,7 +3,12 @@
   var idIncrementor = 0;
 
   angular
-    .module('mwl.confirm', ['ngSanitize', 'ui.bootstrap.position', 'offClick'])
+    .module('mwl.confirm', [
+      'ngSanitize',
+      'ui.bootstrap.position',
+      'offClick'
+    ])
+
     .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $timeout, $document, $window, $position) {
       var vm = this;
       vm.placement = vm.placement || 'top';
@@ -83,6 +88,7 @@
       });
 
     })
+
     .directive('mwlConfirm', function() {
 
       return {
