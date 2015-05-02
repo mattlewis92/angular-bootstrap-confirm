@@ -18,6 +18,7 @@
       if (!$element.attr('id')) {
         $element.attr('id', 'popover-trigger-' + idIncrementor++);
       }
+
       $scope.triggerSelector = '#' + $element.attr('id'); //eslint-disable-line angular/ng_controller_as
 
       var template = [

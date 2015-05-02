@@ -1,8 +1,6 @@
 {
   "rules": {
-    "quotes": "single",
-    "global-strict": false,
-    "no-loop-func": false
+    "quotes": "single"
   },
   "globals": {
     "angular": true
