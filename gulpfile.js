@@ -4,6 +4,7 @@ var open = require('open');
 var bowerFiles = require('main-bower-files');
 var series = require('stream-series');
 var runSequence = require('run-sequence');
+require('gulp-release-tasks')(gulp);
 
 gulp.task('server', function() {
   $.connect.server({

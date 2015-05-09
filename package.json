@@ -38,6 +38,7 @@
     "gulp-livereload": "~3.8.0",
     "gulp-load-plugins": "~0.10.0",
     "gulp-ng-annotate": "~0.5.3",
+    "gulp-release-tasks": "0.0.3",
     "gulp-rename": "~1.2.2",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-uglify": "~1.2.0",
