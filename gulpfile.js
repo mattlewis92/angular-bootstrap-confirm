@@ -85,4 +85,28 @@ gulp.task('ci', function(done) {
   runSequence('ci:lint', 'build', 'test:dist', done);
 });
 
+var pkg = require('./bower.json');
+var banner = ['/**',
+  ' * <%= pkg.name %> - <%= pkg.description %>',
+  ' * @version v<%= pkg.version %>',
+  ' * @link <%= pkg.homepage %>',
+  ' * @license <%= pkg.license %>',
+  ' */',
+  ''].join('\n');
+
+gulp.task('build', function() {
+
+  return gulp.src('src/angular-bootstrap-confirm.js')
+    .pipe(gulp.dest('dist'))
+    .pipe($.sourcemaps.init())
+    .pipe(gulp.dest('dist'))
+    .pipe($.ngAnnotate())
+    .pipe($.rename('angular-bootstrap-confirm.min.js'))
+    .pipe($.uglify())
+    .pipe($.header(banner, { pkg : pkg } ))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist'));
+
+});
+
 gulp.task('default', ['watch']);

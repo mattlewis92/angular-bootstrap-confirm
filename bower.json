@@ -6,7 +6,7 @@
     "Matt Lewis"
   ],
   "description": "Displays a bootstrap confirmation popover when clicking the given element.",
-  "main": "src/angular-bootstrap-confirm.js",
+  "main": "dist/angular-bootstrap-confirm.js",
   "moduleType": [
     "globals"
   ],
