@@ -223,9 +223,9 @@ describe('Confirm popover', function() {
       expect(scope.onCancel).to.have.been.called;
     });
 
-    it('should set the default confirm button class to danger', function() {
+    it('should set the default confirm button class to success', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect(getConfirmButton(popover).hasClass('btn-danger')).to.be.true;
+      expect(getConfirmButton(popover).hasClass('btn-success')).to.be.true;
     });
 
     it('should allow html in the confirm button text', function() {
