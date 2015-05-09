@@ -1,8 +1,8 @@
 {
   "name": "angular-bootstrap-confirm",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Displays a bootstrap confirmation popover when clicking the given element.",
-  "main": "src/angular-bootstrap-confirm.js",
+  "main": "dist/angular-bootstrap-confirm.js",
   "directories": {
     "test": "test"
   },
@@ -33,9 +33,14 @@
     "gulp-connect": "~2.2.0",
     "gulp-eslint": "~0.11.1",
     "gulp-filter": "~2.0.2",
+    "gulp-header": "~1.2.2",
     "gulp-karma": "0.0.4",
     "gulp-livereload": "~3.8.0",
     "gulp-load-plugins": "~0.10.0",
+    "gulp-ng-annotate": "~0.5.3",
+    "gulp-rename": "~1.2.2",
+    "gulp-sourcemaps": "~1.5.2",
+    "gulp-uglify": "~1.2.0",
     "karma": "~0.12.31",
     "karma-chai-plugins": "~0.5.0",
     "karma-chrome-launcher": "~0.1.8",

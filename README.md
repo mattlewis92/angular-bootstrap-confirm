@@ -156,6 +156,5 @@ THE SOFTWARE.
 
 ## TODO
 * Conventional changelog
-* Build script
 * Release 0.1.0
 * Publish to bower

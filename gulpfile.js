@@ -52,7 +52,7 @@ gulp.task('ci:lint', function() {
 function runTests(action, onDistCode) {
   var vendorJs = gulp.src(bowerFiles({includeDev: true})).pipe($.filter('*.js'));
   if (onDistCode) {
-    var appJs = gulp.src('dist/*.js').pipe($.angularFilesort());
+    var appJs = gulp.src(['dist/*.js', 'src/ui-bootstrap-position.js']).pipe($.angularFilesort());
   } else {
     var appJs = gulp.src('src/*.js').pipe($.angularFilesort());
   }
@@ -97,8 +97,8 @@ var banner = ['/**',
 gulp.task('build', function() {
 
   return gulp.src('src/angular-bootstrap-confirm.js')
-    .pipe(gulp.dest('dist'))
     .pipe($.sourcemaps.init())
+    .pipe($.header(banner, { pkg : pkg } ))
     .pipe(gulp.dest('dist'))
     .pipe($.ngAnnotate())
     .pipe($.rename('angular-bootstrap-confirm.min.js'))
