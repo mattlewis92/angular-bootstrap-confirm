@@ -9,6 +9,7 @@ Displays a bootstrap confirmation popover
 *** This is a WIP ***
 
 ### TODO
+* Conventional changelog
 * Add unit tests
 * Write docs
 * Build script

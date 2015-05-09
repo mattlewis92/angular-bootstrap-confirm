@@ -85,3 +85,4 @@ gulp.task('ci', function(done) {
   runSequence('ci:lint', 'build', 'test:dist', done);
 });
 
+gulp.task('default', ['watch']);

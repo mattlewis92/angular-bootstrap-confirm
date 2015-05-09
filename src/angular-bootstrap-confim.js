@@ -11,7 +11,7 @@
       'offClick'
     ])
 
-    .controller('PopoverConfirmController', function($scope, $element, $compile, $timeout, $document, $window, $position) {
+    .controller('PopoverConfirmController', function($scope, $element, $compile, $document, $window, $position) {
       var vm = this;
       vm.placement = vm.placement || 'top';
 
@@ -40,6 +40,7 @@
       ].join('\n');
 
       var popover = angular.element(template);
+      popover.css('display', 'none');
       $compile(popover)($scope);
       $document.find('body').append(popover);
 
