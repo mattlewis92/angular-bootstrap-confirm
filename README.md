@@ -10,7 +10,6 @@ Displays a bootstrap confirmation popover
 
 ### TODO
 * Conventional changelog
-* Add unit tests
 * Write docs
 * Build script
 * Release 0.1.0

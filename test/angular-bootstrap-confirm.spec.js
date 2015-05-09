@@ -88,11 +88,12 @@ describe('Confirm popover', function() {
       });
 
       it('should set the top css property', function() {
-        //TODO
+        //really hacky, not sure why .offset, .position or .css('top') return different value
+        expect(popover.attr('style').indexOf('top: 10px') > -1).to.be.true;
       });
 
       it('should set the left css property', function() {
-        //TODO
+        expect(popover.attr('style').indexOf('left: 50px') > -1).to.be.true;
       });
 
     });
@@ -110,14 +111,6 @@ describe('Confirm popover', function() {
         expect(popover.is(':visible')).to.be.true;
         $(element).click();
         expect(popover.is(':visible')).to.be.false;
-      });
-
-    });
-
-    describe('window resize', function() {
-
-      it('should reposition the popover when the window resizes', function() {
-        //TODO
       });
 
     });
@@ -154,26 +147,34 @@ describe('Confirm popover', function() {
       return $('body').find('.popover:first');
     }
 
+    function getConfirmButton(popover) {
+      return $(popover).find('.btn:first');
+    }
+
+    function getCancelButton(popover) {
+      return $(popover).find('.popover-content .row :nth-child(2) .btn');
+    }
+
     it('should set the default confirm text', function() {
 
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect($(popover).find('.btn:first').text()).to.equal('Confirm');
+      expect(getConfirmButton(popover).text()).to.equal('Confirm');
 
     });
 
     it('should set the confirm text when specified', function() {
       var popover = createPopover('<button mwl-confirm confirm-text="Different confirm text">Test</button>');
-      expect($(popover).find('.btn:first').text()).to.equal('Different confirm text');
+      expect(getConfirmButton(popover).text()).to.equal('Different confirm text');
     });
 
     it('should set the default cancel text', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect($(popover).find('.popover-content .row :nth-child(2) .btn').text()).to.equal('Cancel');
+      expect(getCancelButton(popover).text()).to.equal('Cancel');
     });
 
     it('should set the cancel text when specified', function() {
       var popover = createPopover('<button mwl-confirm cancel-text="Different cancel text">Test</button>');
-      expect($(popover).find('.popover-content .row :nth-child(2) .btn').text()).to.equal('Different cancel text');
+      expect(getCancelButton(popover).text()).to.equal('Different cancel text');
     });
 
     it('should set the popover message', function() {
@@ -211,67 +212,86 @@ describe('Confirm popover', function() {
     it('should call onConfirm when the confirm button is clicked', function() {
       scope.onConfirm = sinon.spy();
       var popover = createPopover('<button mwl-confirm on-confirm="onConfirm()">Test</button>');
-      $(popover).find('.btn:first').click();
+      getConfirmButton(popover).click();
       expect(scope.onConfirm).to.have.been.called;
     });
 
     it('should call onCancel when the cancel button is clicked', function() {
       scope.onCancel = sinon.spy();
       var popover = createPopover('<button mwl-confirm on-cancel="onCancel()">Test</button>');
-      $(popover).find('.popover-content .row :nth-child(2) .btn').click();
+      getCancelButton(popover).click();
       expect(scope.onCancel).to.have.been.called;
     });
 
     it('should set the default confirm button class to danger', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect($(popover).find('.btn:first').hasClass('btn-danger')).to.be.true;
+      expect(getConfirmButton(popover).hasClass('btn-danger')).to.be.true;
     });
 
     it('should allow html in the confirm button text', function() {
       scope.confirmButtonText = '<b>Confirm</b>';
       var popover = createPopover('<button mwl-confirm confirm-text="{{ confirmButtonText }}">Test</button>');
-      expect($(popover).find('.btn:first > b').size()).to.equal(1);
+      expect(getConfirmButton(popover).find('b').size()).to.equal(1);
     });
 
     it('should set confirm button class when specified', function() {
       var popover = createPopover('<button mwl-confirm confirm-button-type="warning">Test</button>');
-      expect($(popover).find('.btn:first').hasClass('btn-warning')).to.be.true;
+      expect(getConfirmButton(popover).hasClass('btn-warning')).to.be.true;
     });
 
     it('should set the default cancel button class to default', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect($(popover).find('.popover-content .row :nth-child(2) .btn').hasClass('btn-default')).to.be.true;
+      expect(getCancelButton(popover).hasClass('btn-default')).to.be.true;
     });
 
     it('should set cancel button class when specified', function() {
       var popover = createPopover('<button mwl-confirm cancel-button-type="warning">Test</button>');
-      expect($(popover).find('.popover-content .row :nth-child(2) .btn').hasClass('btn-warning')).to.be.true;
+      expect(getCancelButton(popover).hasClass('btn-warning')).to.be.true;
     });
 
     it('should allow html in the cancel button text', function() {
       scope.cancelButtonText = '<b>Cancel</b>';
       var popover = createPopover('<button mwl-confirm cancel-text="{{ cancelButtonText }}">Test</button>');
-      expect($(popover).find('.popover-content .row :nth-child(2) .btn > b').size()).to.equal(1);
+      expect(getCancelButton(popover).find('b').size()).to.equal(1);
     });
 
     it('should close the popover when another element that isn\'t the popover is clicked', function() {
-
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+      expect($(popover).is(':visible')).to.be.false;
+      $(element).click();
+      expect($(popover).is(':visible')).to.be.true;
+      var otherButton = $('<button></button>');
+      $('body').append(otherButton);
+      otherButton.click();
+      scope.$digest();
+      expect($(popover).is(':visible')).to.be.false;
     });
 
     it('should keep the popover open when an element inside the popover is clicked', function() {
-
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+      $(element).click();
+      expect($(popover).is(':visible')).to.be.true;
+      $(popover).find('.popover-title').click();
+      scope.$digest();
+      expect($(popover).is(':visible')).to.be.true;
     });
 
     it('should close the popover when the confirm button is clicked', function() {
-
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+      $(element).click();
+      expect($(popover).is(':visible')).to.be.true;
+      getConfirmButton(popover).click();
+      scope.$digest();
+      expect($(popover).is(':visible')).to.be.false;
     });
 
     it('should close the popover when the cancel button is clicked', function() {
-
-    });
-
-    it('should not throw any errors when the default interpolation symbols are changed', function() {
-
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+      $(element).click();
+      expect($(popover).is(':visible')).to.be.true;
+      getCancelButton(popover).click();
+      scope.$digest();
+      expect($(popover).is(':visible')).to.be.false;
     });
 
   });
