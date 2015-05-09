@@ -48,7 +48,9 @@ angular.module('myModule', ['mwl.confirm']);
 
 ## Documentation
 
-There is a single directive exposed to create the calendar, use it like so:
+### mwl-confirm directive
+
+There is a single directive exposed to create the confirmation popover, use it like so:
 ```javascript
 <button
   class="btn btn-default"
@@ -68,32 +70,47 @@ There is a single directive exposed to create the calendar, use it like so:
 
 An explanation of the properties is as follows:
 
-###title
+#### title
 The title of the popover. This value is interpolated.
 
-###message
+#### message
 The body text of the popover. This value is interpolated.
 
-###confirm-text
+#### confirm-text
 The text of the confirm button. This value is interpolated. Default "Confirm"
 
-###cancel-text
+#### cancel-text
 The text of the cancel button. This value is interpolated. Default "Cancel"
 
-###placement
+#### placement
 The placement of the popover. This value is interpolated. It can be either "top", "right", "bottom" or "left". Default "top"
 
-###on-confirm
+#### on-confirm
 An angular expression that is called when the confirm button is clicked.
 
-###on-cancel
+#### on-cancel
 An angular expression that is called when the cancel button is clicked.
 
-###confirm-button-type
+#### confirm-button-type
 The bootstrap button type of the confirm button. This value is interpolated. It can be any supported bootstrap color type e.g. default, warning, danger etc. Default "success"
 
-###cancel-button-type
+#### cancel-button-type
 The bootstrap button type of the cancel button. This value is interpolated. It can be any supported bootstrap color type e.g. default, warning, danger etc. Default "default"
+
+### confirmationPopover provider
+There is also a provider you can use to configure the directive defaults. The following chainable methods are exposed:
+```javascript
+angular.module('myModule').config(function(confirmationPopoverProvider) {
+  confirmationPopoverProvider
+    .setDefaultConfirmText('Confirm')
+    .setDefaultCancelText('Cancel')
+    .setDefaultConfirmButtonType('success')
+    .setDefaultCancelButtonType('default')
+    .setDefaultPlacement('top');
+});
+```
+
+There is also a provider so you can configure all the directive defaults. 
 
 ## Demo
 

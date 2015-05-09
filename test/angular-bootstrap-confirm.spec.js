@@ -17,6 +17,14 @@ describe('Confirm popover', function() {
 
   }));
 
+  function getConfirmButton(popover) {
+    return $(popover).find('.btn:first');
+  }
+
+  function getCancelButton(popover) {
+    return $(popover).find('.popover-content .row :nth-child(2) .btn');
+  }
+
   describe('PopoverConfirmController', function() {
 
     var ctrl, scope, element, popover;
@@ -145,14 +153,6 @@ describe('Confirm popover', function() {
       $compile(element)(scope);
       scope.$digest();
       return $('body').find('.popover:first');
-    }
-
-    function getConfirmButton(popover) {
-      return $(popover).find('.btn:first');
-    }
-
-    function getCancelButton(popover) {
-      return $(popover).find('.popover-content .row :nth-child(2) .btn');
     }
 
     it('should set the default confirm text', function() {
@@ -292,6 +292,77 @@ describe('Confirm popover', function() {
       getCancelButton(popover).click();
       scope.$digest();
       expect($(popover).is(':visible')).to.be.false;
+    });
+
+  });
+
+  describe('confirmationPopoverProvider', function() {
+
+    var popover, scope;
+
+    beforeEach(module(function(confirmationPopoverProvider) {
+
+      confirmationPopoverProvider
+        .setDefaultConfirmText('Confirm changed')
+        .setDefaultCancelText('Cancel changed')
+        .setDefaultConfirmButtonType('warning')
+        .setDefaultCancelButtonType('warning')
+        .setDefaultPlacement('left');
+
+    }));
+
+    beforeEach(inject(function($compile, $rootScope) {
+
+      var element = angular.element('<button mwl-confirm>Test</button>');
+      scope = $rootScope.$new();
+      $compile(element)(scope);
+      scope.$digest();
+      popover = $('body').find('.popover:first');
+
+    }));
+
+    afterEach(function() {
+      scope.$destroy();
+    });
+
+    describe('setDefaultConfirmText', function() {
+
+      it('should set the default confirm text', function() {
+        expect(getConfirmButton(popover).text()).to.equal('Confirm changed');
+      });
+
+    });
+
+    describe('setDefaultCancelText', function() {
+
+      it('should set the default cancel text', function() {
+        expect(getCancelButton(popover).text()).to.equal('Cancel changed');
+      });
+
+    });
+
+    describe('setDefaultConfirmButtonType', function() {
+
+      it('should set the default confirm button type', function() {
+        expect(getConfirmButton(popover).hasClass('btn-warning')).to.be.true;
+      });
+
+    });
+
+    describe('setDefaultCancelButtonType', function() {
+
+      it('should set the default cancel button type', function() {
+        expect(getCancelButton(popover).hasClass('btn-warning')).to.be.true;
+      });
+
+    });
+
+    describe('setDefaultPlacement', function() {
+
+      it('should set the default placement', function() {
+        expect($(popover).hasClass('left')).to.be.true;
+      });
+
     });
 
   });

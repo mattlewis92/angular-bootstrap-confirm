@@ -11,9 +11,10 @@
       'offClick'
     ])
 
-    .controller('PopoverConfirmController', function($scope, $element, $compile, $document, $window, $position) {
+    .controller('PopoverConfirmController', function($scope, $element, $compile, $document, $window, $position, confirmationPopover) {
       var vm = this;
-      vm.placement = vm.placement || 'top';
+      vm.defaults = confirmationPopover;
+      vm.placement = vm.placement || vm.defaults.placement;
 
       if (!$element.attr('id')) {
         $element.attr('id', 'popover-trigger-' + idIncrementor++);
@@ -29,10 +30,10 @@
             '<p ng-bind-html="vm.message"></p>',
             '<div class="row">',
               '<div class="col-xs-6">',
-                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || \'success\')" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || \'Confirm\'"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
               '</div>',
               '<div class="col-xs-6">',
-                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || \'default\')" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || \'Cancel\'"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
               '</div>',
             '</div>',
           '</div>',
@@ -111,6 +112,49 @@
           cancelButtonType: '@'
         }
       };
+    })
+
+    .provider('confirmationPopover', function() {
+
+      var defaults = {
+        confirmText: 'Confirm',
+        cancelText: 'Cancel',
+        confirmButtonType: 'success',
+        cancelButtonType: 'default',
+        placement: 'top'
+      };
+
+      var provider = this;
+
+      this.setDefaultConfirmText = function(value) {
+        defaults.confirmText = value;
+        return provider;
+      };
+
+      this.setDefaultCancelText = function(value) {
+        defaults.cancelText = value;
+        return provider;
+      };
+
+      this.setDefaultConfirmButtonType = function(value) {
+        defaults.confirmButtonType = value;
+        return provider;
+      };
+
+      this.setDefaultCancelButtonType = function(value) {
+        defaults.cancelButtonType = value;
+        return provider;
+      };
+
+      this.setDefaultPlacement = function(value) {
+        defaults.placement = value;
+        return provider;
+      };
+
+      this.$get = function() {
+        return defaults;
+      };
+
     });
 
 })(angular);
