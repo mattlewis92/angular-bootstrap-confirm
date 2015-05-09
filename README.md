@@ -55,13 +55,13 @@ There is a single directive exposed to create the confirmation popover, use it l
 <button
   class="btn btn-default"
   mwl-confirm
-  title="{{ vm.title }}"
-  message="{{ vm.message }}"
-  confirm-text="{{ vm.confirmText }}"
-  cancel-text="{{ vm.cancelText }}"
+  title="{{ title }}"
+  message="{{ message }}"
+  confirm-text="{{ confirmText }}"
+  cancel-text="{{ cancelText }}"
   placement="{{ placement }}"
-  on-confirm="vm.confirmClicked = true"
-  on-cancel="vm.cancelClicked = true"
+  on-confirm="confirmClicked = true"
+  on-cancel="cancelClicked = true"
   confirm-button-type="danger"
   cancel-button-type="default">
   Click me!
