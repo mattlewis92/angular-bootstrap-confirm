@@ -110,8 +110,6 @@ angular.module('myModule').config(function(confirmationPopoverProvider) {
 });
 ```
 
-There is also a provider so you can configure all the directive defaults. 
-
 ## Demo
 
 http://mattlewis92.github.io/angular-bootstrap-confirm/
