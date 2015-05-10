@@ -11,8 +11,5 @@ before_script:
 
 script: gulp ci
 
-after_script:
-- ls test/coverage
-
 env:
   secure: NCjKm0qP7sNuXKvKjLVxBdnbVJHyXfPL2/Bc3+3P1s5GTnG/MAEqmM3MKYQvceBKCa8V6WfPmooVdv3qvVHGlLXSUSvKdNFhAHwPmZ5hbXbAyakakLj2P4Km1hFuTcGhROZwKOZM/LPWgeDAt46Dv+qB3Z62ROmI9bV61TPDs8Y=
