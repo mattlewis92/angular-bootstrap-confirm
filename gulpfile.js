@@ -83,7 +83,7 @@ gulp.task('test:watch', function() {
 });
 
 gulp.task('coveralls', function() {
-  return gulp.src('coverage/**/lcov.info')
+  return gulp.src('./test/coverage/**/lcov.info')
     .pipe($.coveralls());
 });
 
