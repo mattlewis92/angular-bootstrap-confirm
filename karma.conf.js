@@ -17,7 +17,8 @@ module.exports = function(config) {
       'karma-chai-plugins',
       'karma-chrome-launcher',
       'karma-phantomjs-launcher',
-      'karma-coverage'
+      'karma-coverage',
+      'karma-coveralls'
     ],
 
     // list of files / patterns to load in the browser
@@ -34,10 +35,14 @@ module.exports = function(config) {
       'src/angular-bootstrap-confirm.js': 'coverage'
     },
 
+    coverageReporter: {
+      type: 'lcov'
+    },
+
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'coveralls'],
 
     // web server port
     port: 9876,
