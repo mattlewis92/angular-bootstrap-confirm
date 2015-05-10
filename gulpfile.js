@@ -82,13 +82,8 @@ gulp.task('test:watch', function() {
   return runTests('watch');
 });
 
-gulp.task('coveralls', function() {
-  return gulp.src('./test/coverage/**/lcov.info')
-    .pipe($.coveralls());
-});
-
 gulp.task('ci', function(done) {
-  runSequence('ci:lint', 'build', 'test:dist', 'coveralls', done);
+  runSequence('ci:lint', 'build', 'test:dist', done);
 });
 
 var pkg = require('./bower.json');
