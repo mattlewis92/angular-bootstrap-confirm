@@ -41,7 +41,7 @@ bower install --save angular-bootstrap-confirm
 You will then need to include the JS and CSS files for the plugin:
 
 ```
-<script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.min.js">
+<script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.min.js"></script>
 ```
 
 And finally add the module dependency in your AngularJS app:
