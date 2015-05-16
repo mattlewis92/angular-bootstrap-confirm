@@ -19,14 +19,14 @@ gulp.task('server', function() {
 gulp.task('watch', ['server'], function() {
   $.livereload.listen();
   gulp.start('test:watch');
-  gulp.watch('src/angular-bootstrap-confirm.js', ['lint']);
+  gulp.watch('src/angular-bootstrap-confirm.js', ['eslint']);
   gulp.watch([
     './index.html',
     './src/**/*.js'
   ]).on('change', $.livereload.changed);
 });
 
-function lint(failOnError) {
+function eslint(failOnError) {
   var stream = gulp.src('src/angular-bootstrap-confirm.js')
     .pipe($.eslint())
     .pipe($.eslint.format());
@@ -38,12 +38,12 @@ function lint(failOnError) {
   }
 }
 
-gulp.task('lint', function() {
-  return lint();
+gulp.task('eslint', function() {
+  return eslint();
 });
 
-gulp.task('ci:lint', function() {
-  return lint(true);
+gulp.task('ci:eslint', function() {
+  return eslint(true);
 });
 
 function runTests(action, onDistCode) {
@@ -79,7 +79,7 @@ gulp.task('test:watch', function() {
 });
 
 gulp.task('ci', function(done) {
-  runSequence('ci:lint', 'build', 'test:dist', done);
+  runSequence('ci:eslint', 'build', 'test:dist', done);
 });
 
 var pkg = require('./bower.json');
