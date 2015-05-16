@@ -100,7 +100,7 @@
 
       return {
         restrict: 'EA',
-        controller: 'PopoverConfirmController as vm',
+        controller: 'PopoverConfirmCtrl as vm',
         bindToController: true,
         scope: {
           confirmText: '@',

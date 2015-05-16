@@ -25,7 +25,7 @@ describe('Confirm popover', function() {
     return $(popover).find('.popover-content .row :nth-child(2) .btn');
   }
 
-  describe('PopoverConfirmController', function() {
+  describe('PopoverConfirmCtrl', function() {
 
     var ctrl, scope, element, popover;
 
@@ -33,7 +33,7 @@ describe('Confirm popover', function() {
 
       scope = $rootScope.$new();
       element = angular.element('<button>Test</button>');
-      ctrl = $controller('PopoverConfirmController as vm', {
+      ctrl = $controller('PopoverConfirmCtrl as vm', {
         $scope: scope,
         $element: element
       });
