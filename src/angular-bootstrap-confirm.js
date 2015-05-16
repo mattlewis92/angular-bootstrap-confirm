@@ -11,7 +11,7 @@
       'offClick'
     ])
 
-    .controller('PopoverConfirmController', function($scope, $element, $compile, $document, $window, $position, confirmationPopover) {
+    .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $position, confirmationPopover) {
       var vm = this;
       vm.defaults = confirmationPopover;
       vm.placement = vm.placement || vm.defaults.placement;
@@ -30,10 +30,12 @@
             '<p ng-bind-html="vm.message"></p>',
             '<div class="row">',
               '<div class="col-xs-6">',
-                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
+                'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
               '</div>',
               '<div class="col-xs-6">',
-                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
+                'ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
               '</div>',
             '</div>',
           '</div>',
@@ -157,4 +159,4 @@
 
     });
 
-})(angular);
+}(angular));

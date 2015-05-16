@@ -26,10 +26,6 @@ gulp.task('watch', ['server'], function() {
   ]).on('change', $.livereload.changed);
 });
 
-gulp.task('build', function() {
-  //TODO
-});
-
 function lint(failOnError) {
   var stream = gulp.src('src/angular-bootstrap-confirm.js')
     .pipe($.eslint())
