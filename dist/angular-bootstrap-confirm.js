@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.1.0
+ * @version v0.1.1
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
@@ -17,10 +17,10 @@
       'offClick'
     ])
 
-    .controller('PopoverConfirmController', function($scope, $element, $compile, $document, $window, $position, confirmationPopover) {
+    .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $position, confirmationPopover) {
       var vm = this;
       vm.defaults = confirmationPopover;
-      vm.placement = vm.placement || vm.defaults.placement;
+      vm.popoverPlacement = vm.placement || vm.defaults.placement;
 
       if (!$element.attr('id')) {
         $element.attr('id', 'popover-trigger-' + idIncrementor++);
@@ -29,17 +29,19 @@
       $scope.triggerSelector = '#' + $element.attr('id'); //eslint-disable-line angular/ng_controller_as
 
       var template = [
-        '<div class="popover" ng-class="vm.placement" off-click="vm.hidePopover()" off-click-filter="triggerSelector">',
+        '<div class="popover" ng-class="vm.popoverPlacement" off-click="vm.hidePopover()" off-click-filter="triggerSelector">',
           '<div class="arrow"></div>',
           '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
           '<div class="popover-content">',
             '<p ng-bind-html="vm.message"></p>',
             '<div class="row">',
               '<div class="col-xs-6">',
-                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
+                'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
               '</div>',
               '<div class="col-xs-6">',
-                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
+                '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
+                'ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
               '</div>',
             '</div>',
           '</div>',
@@ -54,7 +56,7 @@
       vm.isVisible = false;
 
       function positionPopover() {
-        var position = $position.positionElements($element, popover, vm.placement, true);
+        var position = $position.positionElements($element, popover, vm.popoverPlacement, true);
         position.top += 'px';
         position.left += 'px';
         popover.css(position);
@@ -104,7 +106,7 @@
 
       return {
         restrict: 'EA',
-        controller: 'PopoverConfirmController as vm',
+        controller: 'PopoverConfirmCtrl as vm',
         bindToController: true,
         scope: {
           confirmText: '@',
@@ -163,4 +165,4 @@
 
     });
 
-})(angular);
+}(angular));
