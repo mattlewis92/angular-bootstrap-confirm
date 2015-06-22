@@ -1,6 +1,6 @@
 {
   "rules": {
-    "quotes": "single",
+    "quotes": [2, "single"],
     "camelcase": [2, {"properties": "never"}],
     "angular/ng_controller_name": [2, "/[A-Z].*Ctrl/"],
     "angular/ng_no_services": [2, ["$http"]],
