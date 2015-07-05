@@ -27,6 +27,7 @@
   "homepage": "https://github.com/mattlewis92/angular-bootstrap-confirm#readme",
   "devDependencies": {
     "eslint": "~0.24.0",
+    "eslint-config-mwl": "~0.1.0",
     "eslint-plugin-angular": "0.0.15",
     "gulp": "~3.9.0",
     "gulp-angular-filesort": "~1.1.1",
