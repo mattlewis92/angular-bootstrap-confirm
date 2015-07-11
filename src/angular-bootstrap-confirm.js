@@ -11,9 +11,9 @@
       'offClick'
     ])
 
-    .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $position, confirmationPopover) {
+    .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $position, confirmationPopoverDefaults) {
       var vm = this;
-      vm.defaults = confirmationPopover;
+      vm.defaults = confirmationPopoverDefaults;
       vm.popoverPlacement = vm.placement || vm.defaults.placement;
 
       if (!$element.attr('id')) {
@@ -116,47 +116,12 @@
       };
     })
 
-    .provider('confirmationPopover', function() {
-
-      var defaults = {
-        confirmText: 'Confirm',
-        cancelText: 'Cancel',
-        confirmButtonType: 'success',
-        cancelButtonType: 'default',
-        placement: 'top'
-      };
-
-      var provider = this;
-
-      this.setDefaultConfirmText = function(value) {
-        defaults.confirmText = value;
-        return provider;
-      };
-
-      this.setDefaultCancelText = function(value) {
-        defaults.cancelText = value;
-        return provider;
-      };
-
-      this.setDefaultConfirmButtonType = function(value) {
-        defaults.confirmButtonType = value;
-        return provider;
-      };
-
-      this.setDefaultCancelButtonType = function(value) {
-        defaults.cancelButtonType = value;
-        return provider;
-      };
-
-      this.setDefaultPlacement = function(value) {
-        defaults.placement = value;
-        return provider;
-      };
-
-      this.$get = function() {
-        return defaults;
-      };
-
+    .value('confirmationPopoverDefaults', {
+      confirmText: 'Confirm',
+      cancelText: 'Cancel',
+      confirmButtonType: 'success',
+      cancelButtonType: 'default',
+      placement: 'top'
     });
 
 }(angular));

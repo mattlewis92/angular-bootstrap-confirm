@@ -101,16 +101,12 @@ The bootstrap button type of the confirm button. This value is interpolated. It 
 #### cancel-button-type
 The bootstrap button type of the cancel button. This value is interpolated. It can be any supported bootstrap color type e.g. default, warning, danger etc. Default "default"
 
-### confirmationPopover provider
-There is also a provider you can use to configure the directive defaults. The following chainable methods are exposed:
+### confirmationPopoverDefaults
+There is also a value you can use to set the defaults like so:
 ```javascript
-angular.module('myModule').config(function(confirmationPopoverProvider) {
-  confirmationPopoverProvider
-    .setDefaultConfirmText('Confirm')
-    .setDefaultCancelText('Cancel')
-    .setDefaultConfirmButtonType('success')
-    .setDefaultCancelButtonType('default')
-    .setDefaultPlacement('top');
+angular.module('myModule').run(function(confirmationPopoverDefaults) {
+  console.log(confirmationPopoverDefaults); //View all the defaults you can change
+  confirmationPopoverDefaults.confirmButtonType = 'danger'; //set the default confirm button type to be danger
 });
 ```
 
