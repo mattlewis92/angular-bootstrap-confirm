@@ -2,13 +2,10 @@
 
   'use strict';
 
-  var idIncrementor = 0;
-
   angular
     .module('mwl.confirm', [
       'ngSanitize',
-      'ui.bootstrap.position',
-      'offClick'
+      'ui.bootstrap.position'
     ])
 
     .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $position, confirmationPopoverDefaults) {
@@ -16,14 +13,8 @@
       vm.defaults = confirmationPopoverDefaults;
       vm.popoverPlacement = vm.placement || vm.defaults.placement;
 
-      if (!$element.attr('id')) {
-        $element.attr('id', 'popover-trigger-' + idIncrementor++);
-      }
-
-      $scope.triggerSelector = '#' + $element.attr('id'); //eslint-disable-line angular/ng_controller_as
-
       var template = [
-        '<div class="popover" ng-class="vm.popoverPlacement" off-click="vm.hidePopover()" off-click-filter="triggerSelector">',
+        '<div class="popover" ng-class="vm.popoverPlacement">',
           '<div class="arrow"></div>',
           '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
           '<div class="popover-content">',
@@ -79,6 +70,12 @@
         }
       }
 
+      function documentClick(event) {
+        if (vm.isVisible && !popover[0].contains(event.target) && !$element[0].contains(event.target)) {
+          hidePopover();
+        }
+      }
+
       vm.showPopover = showPopover;
       vm.hidePopover = hidePopover;
       vm.togglePopover = togglePopover;
@@ -87,11 +84,15 @@
 
       $window.addEventListener('resize', positionPopover);
 
-      var unbindOnDestroy = $scope.$on('$destroy', function() {
-        unbindOnDestroy();
+      $document.bind('click', documentClick);
+      $document.bind('touchend', documentClick);
+
+      $scope.$on('$destroy', function() {
         popover.remove();
         $element.unbind('click', togglePopover);
         $window.removeEventListener('resize', positionPopover);
+        $document.unbind('click', documentClick);
+        $document.unbind('touchend', documentClick);
       });
 
     })

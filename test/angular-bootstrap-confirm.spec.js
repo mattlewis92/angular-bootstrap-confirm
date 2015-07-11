@@ -45,11 +45,6 @@ describe('Confirm popover', function() {
       scope.$destroy();
     });
 
-    it('should set an id on the element if it isnt set', function() {
-      expect(element.attr('id')).to.be.defined;
-      expect(element.attr('id')).to.equal('popover-trigger-0');
-    });
-
     describe('showPopover', function() {
 
       it('should show the popover', function() {
