@@ -1,16 +1,12 @@
 {
   "extends": "mwl",
   "rules": {
-    "strict": [2, "function"],
     "angular/ng_controller_name": [2, "/[A-Z].*Ctrl/"]
-  },
-  "globals": {
-    "angular": true
   },
   "plugins": [
     "angular"
   ],
-  "envs": [
-    "browser"
-  ]
+  "env": {
+    "node": true
+  }
 }

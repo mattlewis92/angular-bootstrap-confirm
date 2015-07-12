@@ -1,0 +1,7 @@
+{
+  "extends": "mwl/test",
+  "rules": {
+    "angular/ng_angularelement": 0,
+    "angular/ng_no_digest": 0
+  }
+}

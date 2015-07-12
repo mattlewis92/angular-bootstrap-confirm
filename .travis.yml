@@ -3,13 +3,7 @@ language: node_js
 node_js:
 - '0.12'
 
-before_script:
-- npm install -gq bower
-- bower install --dev --config.interactive=0
-- gulp --version
-- bower --version
-
-script: gulp ci
+script: npm test
 
 env:
   secure: NCjKm0qP7sNuXKvKjLVxBdnbVJHyXfPL2/Bc3+3P1s5GTnG/MAEqmM3MKYQvceBKCa8V6WfPmooVdv3qvVHGlLXSUSvKdNFhAHwPmZ5hbXbAyakakLj2P4Km1hFuTcGhROZwKOZM/LPWgeDAt46Dv+qB3Z62ROmI9bV61TPDs8Y=

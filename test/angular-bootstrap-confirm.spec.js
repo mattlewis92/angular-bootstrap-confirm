@@ -1,8 +1,15 @@
+'use strict';
+
+require('./../src/angular-bootstrap-confirm.js');
+var $ = require('jquery');
+var angular = require('angular');
+require('angular-mocks');
+
 describe('Confirm popover', function() {
 
-  beforeEach(module('mwl.confirm'));
+  beforeEach(angular.mock.module('mwl.confirm'));
 
-  beforeEach(module(function($provide) {
+  beforeEach(angular.mock.module(function($provide) {
 
     $provide.factory('$position', function() {
       return {
@@ -27,13 +34,13 @@ describe('Confirm popover', function() {
 
   describe('PopoverConfirmCtrl', function() {
 
-    var ctrl, scope, element, popover;
+    var scope, element, popover;
 
     beforeEach(inject(function($controller, $rootScope) {
 
       scope = $rootScope.$new();
       element = angular.element('<button>Test</button>');
-      ctrl = $controller('PopoverConfirmCtrl as vm', {
+      $controller('PopoverConfirmCtrl as vm', {
         $scope: scope,
         $element: element
       });
@@ -178,7 +185,7 @@ describe('Confirm popover', function() {
     });
 
     it('should allow html in the popover message', function() {
-      scope.message = '<b>Message<b>'
+      scope.message = '<b>Message<b>';
       var popover = createPopover('<button mwl-confirm message="{{ message }}">Test</button>');
       expect($(popover).find('.popover-content > p > b').size()).to.equal(1);
     });
@@ -189,7 +196,7 @@ describe('Confirm popover', function() {
     });
 
     it('should allow html in the popover title', function() {
-      scope.title = '<b>Title<b>'
+      scope.title = '<b>Title<b>';
       var popover = createPopover('<button mwl-confirm title="{{ title }}">Test</button>');
       expect($(popover).find('.popover-title > b').size()).to.equal(1);
     });
