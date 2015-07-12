@@ -11,16 +11,6 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha', 'chai', 'chai-as-promised', 'sinon-chai', 'chai-things'],
 
-    // these plugins will be require() by Karma
-    plugins: [
-      'karma-mocha',
-      'karma-chai-plugins',
-      'karma-chrome-launcher',
-      'karma-phantomjs-launcher',
-      'karma-coverage',
-      'karma-coveralls'
-    ],
-
     // list of files / patterns to load in the browser
     files: [
     ],
