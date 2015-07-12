@@ -117,17 +117,16 @@ http://mattlewis92.github.io/angular-bootstrap-confirm/
 
 ### Prepare your environment
 * Install [Node.js](http://nodejs.org/) and NPM (should come with)
-* Install global dev dependencies: `npm install -g gulp`
 * Install local dev dependencies: `npm install` while current directory is this repo
 
 ### Development server
-Run `gulp watch` to start a development server on port 8000 with livereload. 
+Run `npm start` to start a development server on port 8000 with auto reload + tests. 
 
 ### Testing
-Run `gulp test:src` to run tests once or `test:watch` to continually run tests (this is automatic when you run `gulp watch`). 
+Run `npm test` to run tests once or `npm run test:watch` to continually run tests (this is automatic when you do `npm start`). 
 
 ### Build
-Run `gulp build` to build the project files in the dist folder
+Run `npm run build` to build the project files in the dist folder
 
 ## License
 
