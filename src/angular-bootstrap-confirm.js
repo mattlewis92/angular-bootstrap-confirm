@@ -1,12 +1,13 @@
 'use strict';
 
 var angular = require('angular');
+require('angular-sanitize');
 require('./ui-bootstrap-position');
 var MODULE_NAME = 'mwl.confirm';
 
 angular
   .module(MODULE_NAME, [
-    require('angular-sanitize'),
+    'ngSanitize',
     'ui.bootstrap.position'
   ])
 
