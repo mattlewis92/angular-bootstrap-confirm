@@ -1,4 +1,4 @@
-# 0.2.0 (unreleased)
+# 0.2.0 (2015-07-12)
 * BREAKING: Replace the confirmationPopover provider with a much simpler confirmationPopoverDefaults value
 * Remove the off click dependency
 * Build with webpack and publish to npm
