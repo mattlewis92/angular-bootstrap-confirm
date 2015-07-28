@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.2.0
+ * @version v0.3.0
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    'ui.bootstrap.position'
 	  ])
 
-	  .controller('PopoverConfirmCtrl', ["$scope", "$element", "$compile", "$document", "$window", "$position", "confirmationPopoverDefaults", function($scope, $element, $compile, $document, $window, $position, confirmationPopoverDefaults) {
+	  .controller('PopoverConfirmCtrl', ["$scope", "$element", "$compile", "$document", "$window", "$timeout", "$position", "confirmationPopoverDefaults", function($scope, $element, $compile, $document, $window, $timeout, $position, confirmationPopoverDefaults) {
 	    var vm = this;
 	    vm.defaults = confirmationPopoverDefaults;
 	    vm.popoverPlacement = vm.placement || vm.defaults.placement;
@@ -119,6 +119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        positionPopover();
 	        vm.isVisible = true;
 	      }
+	      vm.isOpen = true;
 	    }
 
 	    function hidePopover() {
@@ -126,6 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        popover.css({display: 'none'});
 	        vm.isVisible = false;
 	      }
+	      vm.isOpen = false;
 	    }
 
 	    function togglePopover() {
@@ -134,17 +136,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        hidePopover();
 	      }
+	      $scope.$apply();
 	    }
 
 	    function documentClick(event) {
 	      if (vm.isVisible && !popover[0].contains(event.target) && !$element[0].contains(event.target)) {
 	        hidePopover();
+	        $scope.$apply();
 	      }
 	    }
 
 	    vm.showPopover = showPopover;
 	    vm.hidePopover = hidePopover;
 	    vm.togglePopover = togglePopover;
+
+	    $scope.$watch('vm.isOpen', function(isOpen) {
+	      $timeout(function() { //timeout required so that documentClick() event doesn't fire and close it
+	        if (isOpen) {
+	          showPopover();
+	        } else {
+	          hidePopover();
+	        }
+	      });
+	    });
 
 	    $element.bind('click', togglePopover);
 
@@ -178,7 +192,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onConfirm: '&',
 	        onCancel: '&',
 	        confirmButtonType: '@',
-	        cancelButtonType: '@'
+	        cancelButtonType: '@',
+	        isOpen: '='
 	      }
 	    };
 	  })
