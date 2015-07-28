@@ -11,6 +11,11 @@ var webpackConfig = {
       test: /.*\.js$/,
       loaders: ['eslint'],
       exclude: /node_modules/
+    }],
+    postLoaders: [{
+      test: /\.js$/,
+      exclude: /(test|node_modules|ui-bootstrap-position)/,
+      loader: 'istanbul-instrumenter'
     }]
   }
 };
@@ -45,7 +50,6 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/angular-bootstrap-confirm.js': 'coverage',
       'test/angular-bootstrap-confirm.spec.js': ['webpack', 'sourcemap']
     },
 
