@@ -138,11 +138,12 @@ describe('Confirm popover', function() {
 
   describe('mwlConfirmDirective', function() {
 
-    var element, scope, $compile;
+    var element, scope, $compile, $timeout;
 
-    beforeEach(inject(function(_$compile_, $rootScope) {
+    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_) {
       scope = $rootScope.$new();
       $compile = _$compile_;
+      $timeout = _$timeout_;
     }));
 
     afterEach(function() {
@@ -294,6 +295,25 @@ describe('Confirm popover', function() {
       getCancelButton(popover).click();
       scope.$digest();
       expect($(popover).is(':visible')).to.be.false;
+    });
+
+    describe('is-open', function() {
+
+      it('should be true when the popover becomes visible', function() {
+        createPopover('<button mwl-confirm is-open="isOpen">Test</button>');
+        expect(scope.isOpen).to.be.undefined;
+        $(element).click();
+        expect(scope.isOpen).to.be.true;
+      });
+
+      it('should open the popover when set to true', function() {
+        var popover = createPopover('<button mwl-confirm is-open="isOpen">Test</button>');
+        expect($(popover).is(':visible')).to.be.false;
+        scope.isOpen = true;
+        $timeout.flush();
+        expect($(popover).is(':visible')).to.be.true;
+      });
+
     });
 
   });

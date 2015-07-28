@@ -11,7 +11,7 @@ angular
     'ui.bootstrap.position'
   ])
 
-  .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $position, confirmationPopoverDefaults) {
+  .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $timeout, $position, confirmationPopoverDefaults) {
     var vm = this;
     vm.defaults = confirmationPopoverDefaults;
     vm.popoverPlacement = vm.placement || vm.defaults.placement;
@@ -56,6 +56,7 @@ angular
         positionPopover();
         vm.isVisible = true;
       }
+      vm.isOpen = true;
     }
 
     function hidePopover() {
@@ -63,6 +64,7 @@ angular
         popover.css({display: 'none'});
         vm.isVisible = false;
       }
+      vm.isOpen = false;
     }
 
     function togglePopover() {
@@ -71,17 +73,29 @@ angular
       } else {
         hidePopover();
       }
+      $scope.$apply();
     }
 
     function documentClick(event) {
       if (vm.isVisible && !popover[0].contains(event.target) && !$element[0].contains(event.target)) {
         hidePopover();
+        $scope.$apply();
       }
     }
 
     vm.showPopover = showPopover;
     vm.hidePopover = hidePopover;
     vm.togglePopover = togglePopover;
+
+    $scope.$watch('vm.isOpen', function(isOpen) {
+      $timeout(function() { //timeout required so that documentClick() event doesn't fire and close it
+        if (isOpen) {
+          showPopover();
+        } else {
+          hidePopover();
+        }
+      });
+    });
 
     $element.bind('click', togglePopover);
 
@@ -115,7 +129,8 @@ angular
         onConfirm: '&',
         onCancel: '&',
         confirmButtonType: '@',
-        cancelButtonType: '@'
+        cancelButtonType: '@',
+        isOpen: '='
       }
     };
   })

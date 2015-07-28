@@ -111,6 +111,9 @@ The bootstrap button type of the confirm button. This value is interpolated. It 
 #### cancel-button-type
 The bootstrap button type of the cancel button. This value is interpolated. It can be any supported bootstrap color type e.g. default, warning, danger etc. Default "default"
 
+#### is-open
+A 2-way bound variable to control if the popover is currently open or not.
+
 ### confirmationPopoverDefaults
 There is also a value you can use to set the defaults like so:
 ```javascript
