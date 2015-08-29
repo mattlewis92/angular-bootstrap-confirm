@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.3.0
+ * @version v0.3.1
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
@@ -66,10 +66,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var angular = __webpack_require__(1);
 	__webpack_require__(2);
 	__webpack_require__(3);
-	var MODULE_NAME = 'mwl.confirm';
 
-	angular
-	  .module(MODULE_NAME, [
+	module.exports = angular
+
+	  .module('mwl.confirm', [
 	    'ngSanitize',
 	    'ui.bootstrap.position'
 	  ])
@@ -193,7 +193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onCancel: '&',
 	        confirmButtonType: '@',
 	        cancelButtonType: '@',
-	        isOpen: '='
+	        isOpen: '=?'
 	      }
 	    };
 	  })
@@ -204,9 +204,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    confirmButtonType: 'success',
 	    cancelButtonType: 'default',
 	    placement: 'top'
-	  });
+	  })
 
-	module.exports = MODULE_NAME;
+	  .name;
 
 
 /***/ },
