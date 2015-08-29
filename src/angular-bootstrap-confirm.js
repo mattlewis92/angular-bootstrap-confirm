@@ -130,7 +130,7 @@ angular
         onCancel: '&',
         confirmButtonType: '@',
         cancelButtonType: '@',
-        isOpen: '='
+        isOpen: '=?'
       }
     };
   })
