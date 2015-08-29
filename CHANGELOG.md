@@ -1,3 +1,6 @@
+# 0.3.1 (2015-08-29)
+* Make `is-open` optional for angular 1.3 compatibility
+
 # 0.3.0 (2015-07-28)
 * Add is-open property to control the visibility of the popover
 
