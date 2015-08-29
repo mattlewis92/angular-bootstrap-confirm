@@ -3,10 +3,10 @@
 var angular = require('angular');
 require('angular-sanitize');
 require('./ui-bootstrap-position');
-var MODULE_NAME = 'mwl.confirm';
 
-angular
-  .module(MODULE_NAME, [
+module.exports = angular
+
+  .module('mwl.confirm', [
     'ngSanitize',
     'ui.bootstrap.position'
   ])
@@ -141,6 +141,6 @@ angular
     confirmButtonType: 'success',
     cancelButtonType: 'default',
     placement: 'top'
-  });
+  })
 
-module.exports = MODULE_NAME;
+  .name;
