@@ -286,6 +286,7 @@ describe('Confirm popover', function() {
       getConfirmButton(popover).click();
       scope.$digest();
       expect($(popover).is(':visible')).to.be.false;
+      expect($(element).is(':focus')).to.be.true;
     });
 
     it('should close the popover when the cancel button is clicked', function() {
@@ -295,6 +296,7 @@ describe('Confirm popover', function() {
       getCancelButton(popover).click();
       scope.$digest();
       expect($(popover).is(':visible')).to.be.false;
+      expect($(element).is(':focus')).to.be.true;
     });
 
     describe('is-open', function() {
