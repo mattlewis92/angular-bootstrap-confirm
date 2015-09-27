@@ -51,9 +51,9 @@ module.exports = angular
     }
 
     function applyFocus(target) {
-      $timeout(function() {
+      if (Boolean(vm.handleFocus || vm.defaults.handleFocus)) {
         target[0].focus();
-      }, 100);
+      }
     }
 
     function showPopover() {
@@ -140,7 +140,8 @@ module.exports = angular
         onCancel: '&',
         confirmButtonType: '@',
         cancelButtonType: '@',
-        isOpen: '=?'
+        isOpen: '=?',
+        handleFocus: '@'
       }
     };
   })
@@ -150,7 +151,8 @@ module.exports = angular
     cancelText: 'Cancel',
     confirmButtonType: 'success',
     cancelButtonType: 'default',
-    placement: 'top'
+    placement: 'top',
+    handleFocus: 'true'
   })
 
   .name;
