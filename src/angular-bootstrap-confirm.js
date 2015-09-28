@@ -51,7 +51,7 @@ module.exports = angular
     }
 
     function applyFocus(target) {
-      if (Boolean(vm.handleFocus || vm.defaults.handleFocus)) {
+      if (vm.handleFocus || vm.defaults.handleFocus) {
         target[0].focus();
       }
     }
@@ -141,7 +141,7 @@ module.exports = angular
         confirmButtonType: '@',
         cancelButtonType: '@',
         isOpen: '=?',
-        handleFocus: '@'
+        handleFocus: '='
       }
     };
   })
@@ -152,7 +152,7 @@ module.exports = angular
     confirmButtonType: 'success',
     cancelButtonType: 'default',
     placement: 'top',
-    handleFocus: 'true'
+    handleFocus: true
   })
 
   .name;
