@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.3.1
+ * @version v0.4.0
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
@@ -114,9 +114,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function applyFocus(target) {
-	      $timeout(function() {
+	      if (vm.handleFocus || vm.defaults.handleFocus) {
 	        target[0].focus();
-	      }, 100);
+	      }
 	    }
 
 	    function showPopover() {
@@ -203,7 +203,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onCancel: '&',
 	        confirmButtonType: '@',
 	        cancelButtonType: '@',
-	        isOpen: '=?'
+	        isOpen: '=?',
+	        handleFocus: '='
 	      }
 	    };
 	  })
@@ -213,7 +214,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    cancelText: 'Cancel',
 	    confirmButtonType: 'success',
 	    cancelButtonType: 'default',
-	    placement: 'top'
+	    placement: 'top',
+	    handleFocus: true
 	  })
 
 	  .name;
