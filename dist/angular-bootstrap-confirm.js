@@ -92,7 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            '</div>',
 	            '<div class="col-xs-6">',
 	              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
-	              'ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
+	              'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
 	            '</div>',
 	          '</div>',
 	        '</div>',
@@ -113,19 +113,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	      popover.css(position);
 	    }
 
+	    function applyFocus(target) {
+	      $timeout(function() {
+	        target[0].focus();
+	      }, 100);
+	    }
+
 	    function showPopover() {
 	      if (!vm.isVisible) {
 	        popover.css({display: 'block'});
 	        positionPopover();
+	        applyFocus(popover.find('button'));
 	        vm.isVisible = true;
 	      }
 	      vm.isOpen = true;
 	    }
 
-	    function hidePopover() {
+	    function hidePopover(focusElement) {
 	      if (vm.isVisible) {
 	        popover.css({display: 'none'});
 	        vm.isVisible = false;
+	        if (focusElement) {
+	          applyFocus($element);
+	        }
 	      }
 	      vm.isOpen = false;
 	    }

@@ -34,17 +34,19 @@ describe('Confirm popover', function() {
 
   describe('PopoverConfirmCtrl', function() {
 
-    var scope, element, popover;
+    var scope, element, popover, $document;
 
-    beforeEach(inject(function($controller, $rootScope) {
-
+    beforeEach(inject(function($controller, $rootScope, _$document_) {
+      $document = _$document_;
+      var body = $('body');
       scope = $rootScope.$new();
       element = angular.element('<button>Test</button>');
+      body.append(element);
       $controller('PopoverConfirmCtrl as vm', {
         $scope: scope,
         $element: element
       });
-      popover = $('body').find('.popover:first');
+      popover = body.find('.popover:first');
 
     }));
 
@@ -121,6 +123,27 @@ describe('Confirm popover', function() {
         expect(popover.is(':visible')).to.be.true;
         $(element).click();
         expect(popover.is(':visible')).to.be.false;
+      });
+
+    });
+
+    describe('handle focus', function() {
+      /*
+      * Unfortunately phantomjs won't work with target.is(':focus'). See https://github.com/ariya/phantomjs/issues/10427
+      */
+      function expectToHaveFocus(target) {
+        expect(target[0]).to.equal($document[0].activeElement);
+      }
+
+      it('should focus popover confirm button when the element is clicked', function() {
+        $(element).click();
+        expectToHaveFocus(getConfirmButton(popover));
+      });
+
+      it('should focus element when the cancel button is clicked', function() {
+        $(element).click();
+        getCancelButton(popover).click();
+        expectToHaveFocus(element);
       });
 
     });

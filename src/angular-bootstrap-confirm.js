@@ -29,7 +29,7 @@ module.exports = angular
             '</div>',
             '<div class="col-xs-6">',
               '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
-              'ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
+              'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
             '</div>',
           '</div>',
         '</div>',
@@ -50,19 +50,29 @@ module.exports = angular
       popover.css(position);
     }
 
+    function applyFocus(target) {
+      if (Boolean(vm.handleFocus || vm.defaults.handleFocus)) {
+        target[0].focus();
+      }
+    }
+
     function showPopover() {
       if (!vm.isVisible) {
         popover.css({display: 'block'});
         positionPopover();
+        applyFocus(popover.find('button'));
         vm.isVisible = true;
       }
       vm.isOpen = true;
     }
 
-    function hidePopover() {
+    function hidePopover(focusElement) {
       if (vm.isVisible) {
         popover.css({display: 'none'});
         vm.isVisible = false;
+        if (focusElement) {
+          applyFocus($element);
+        }
       }
       vm.isOpen = false;
     }
@@ -130,7 +140,8 @@ module.exports = angular
         onCancel: '&',
         confirmButtonType: '@',
         cancelButtonType: '@',
-        isOpen: '=?'
+        isOpen: '=?',
+        handleFocus: '@'
       }
     };
   })
@@ -140,7 +151,8 @@ module.exports = angular
     cancelText: 'Cancel',
     confirmButtonType: 'success',
     cancelButtonType: 'default',
-    placement: 'top'
+    placement: 'top',
+    handleFocus: 'true'
   })
 
   .name;
