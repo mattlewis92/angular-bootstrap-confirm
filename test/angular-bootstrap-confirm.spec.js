@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable angular/angularelement */
+
 require('./../src/angular-bootstrap-confirm.js');
 var $ = require('jquery');
 var angular = require('angular');
