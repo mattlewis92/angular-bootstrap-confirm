@@ -114,7 +114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function applyFocus(target) {
-	      if (vm.handleFocus || vm.defaults.handleFocus) {
+	      if (vm.handleFocus || (vm.handleFocus!==false && vm.defaults.handleFocus)) {
 	        target[0].focus();
 	      }
 	    }
