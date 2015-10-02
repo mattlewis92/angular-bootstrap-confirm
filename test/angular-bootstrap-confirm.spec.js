@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable angular/angularelement */
+
 require('./../src/angular-bootstrap-confirm.js');
 var $ = require('jquery');
 var angular = require('angular');
@@ -34,17 +36,19 @@ describe('Confirm popover', function() {
 
   describe('PopoverConfirmCtrl', function() {
 
-    var scope, element, popover;
+    var scope, element, popover, $document;
 
-    beforeEach(inject(function($controller, $rootScope) {
-
+    beforeEach(inject(function($controller, $rootScope, _$document_) {
+      $document = _$document_;
+      var body = $('body');
       scope = $rootScope.$new();
       element = angular.element('<button>Test</button>');
+      body.append(element);
       $controller('PopoverConfirmCtrl as vm', {
         $scope: scope,
         $element: element
       });
-      popover = $('body').find('.popover:first');
+      popover = body.find('.popover:first');
 
     }));
 
@@ -125,6 +129,27 @@ describe('Confirm popover', function() {
 
     });
 
+    describe('handle focus', function() {
+      /*
+      * Unfortunately phantomjs won't work with target.is(':focus'). See https://github.com/ariya/phantomjs/issues/10427
+      */
+      function expectToHaveFocus(target) {
+        expect(target[0]).to.equal($document[0].activeElement);
+      }
+
+      it('should focus popover confirm button when the element is clicked', function() {
+        $(element).click();
+        expectToHaveFocus(getConfirmButton(popover));
+      });
+
+      it('should focus element when the cancel button is clicked', function() {
+        $(element).click();
+        getCancelButton(popover).click();
+        expectToHaveFocus(element);
+      });
+
+    });
+
     describe('$destroy', function() {
 
       it('should remove the popover when the scope is destroyed', function() {
@@ -138,12 +163,13 @@ describe('Confirm popover', function() {
 
   describe('mwlConfirmDirective', function() {
 
-    var element, scope, $compile, $timeout;
+    var element, scope, $compile, $timeout, $document;
 
-    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_) {
+    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_, _$document_) {
       scope = $rootScope.$new();
       $compile = _$compile_;
       $timeout = _$timeout_;
+      $document = _$document_;
     }));
 
     afterEach(function() {
@@ -314,6 +340,16 @@ describe('Confirm popover', function() {
         expect($(popover).is(':visible')).to.be.true;
       });
 
+    });
+
+    it('should allow the handle-focus option to be set as an attribute', function() {
+      createPopover('<button mwl-confirm handle-focus="false">Test</button>');
+      var otherButton = $('<button></button>');
+      $('body').append(otherButton);
+      otherButton.focus();
+      $(element).click();
+      scope.$digest();
+      expect(otherButton[0]).to.equal($document[0].activeElement);
     });
 
   });

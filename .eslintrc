@@ -1,7 +1,7 @@
 {
   "extends": "mwl",
   "rules": {
-    "angular/ng_controller_name": [2, "/[A-Z].*Ctrl/"]
+    "angular/controller-name": [2, "/[A-Z].*Ctrl/"]
   },
   "plugins": [
     "angular"

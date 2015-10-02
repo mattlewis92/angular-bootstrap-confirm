@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.3.0
+ * @version v0.4.1
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
@@ -66,10 +66,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var angular = __webpack_require__(1);
 	__webpack_require__(2);
 	__webpack_require__(3);
-	var MODULE_NAME = 'mwl.confirm';
 
-	angular
-	  .module(MODULE_NAME, [
+	module.exports = angular
+
+	  .module('mwl.confirm', [
 	    'ngSanitize',
 	    'ui.bootstrap.position'
 	  ])
@@ -92,7 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            '</div>',
 	            '<div class="col-xs-6">',
 	              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
-	              'ng-click="vm.onCancel(); vm.hidePopover()" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
+	              'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
 	            '</div>',
 	          '</div>',
 	        '</div>',
@@ -113,19 +113,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	      popover.css(position);
 	    }
 
+	    function applyFocus(target) {
+	      var shouldFocus = angular.isDefined(vm.handleFocus) ? vm.handleFocus : vm.defaults.handleFocus;
+	      if (shouldFocus) {
+	        target[0].focus();
+	      }
+	    }
+
 	    function showPopover() {
 	      if (!vm.isVisible) {
 	        popover.css({display: 'block'});
 	        positionPopover();
+	        applyFocus(popover.find('button'));
 	        vm.isVisible = true;
 	      }
 	      vm.isOpen = true;
 	    }
 
-	    function hidePopover() {
+	    function hidePopover(focusElement) {
 	      if (vm.isVisible) {
 	        popover.css({display: 'none'});
 	        vm.isVisible = false;
+	        if (focusElement) {
+	          applyFocus($element);
+	        }
 	      }
 	      vm.isOpen = false;
 	    }
@@ -193,7 +204,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onCancel: '&',
 	        confirmButtonType: '@',
 	        cancelButtonType: '@',
-	        isOpen: '='
+	        isOpen: '=?',
+	        handleFocus: '='
 	      }
 	    };
 	  })
@@ -203,10 +215,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    cancelText: 'Cancel',
 	    confirmButtonType: 'success',
 	    cancelButtonType: 'default',
-	    placement: 'top'
-	  });
+	    placement: 'top',
+	    handleFocus: true
+	  })
 
-	module.exports = MODULE_NAME;
+	  .name;
 
 
 /***/ },

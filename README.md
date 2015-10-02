@@ -85,7 +85,7 @@ There is a single directive exposed to create the confirmation popover, use it l
 An explanation of the properties is as follows:
 
 #### title
-The title of the popover. This value is interpolated.
+The title of the popover. This value is interpolated. Note, if you use an expression, you may want to consider using "data-title" instead of "title" so that the browser doesn't show native tooltips with the angular expression listed.
 
 #### message
 The body text of the popover. This value is interpolated.
@@ -113,6 +113,9 @@ The bootstrap button type of the cancel button. This value is interpolated. It c
 
 #### is-open
 A 2-way bound variable to control if the popover is currently open or not.
+
+#### handle-focus
+Whether to auto focus the confirm button. Default true.
 
 ### confirmationPopoverDefaults
 There is also a value you can use to set the defaults like so:
