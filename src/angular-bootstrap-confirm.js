@@ -51,7 +51,8 @@ module.exports = angular
     }
 
     function applyFocus(target) {
-      if (vm.handleFocus || vm.defaults.handleFocus) {
+      var shouldFocus = angular.isDefined(vm.handleFocus) ? vm.handleFocus : vm.defaults.handleFocus;
+      if (shouldFocus) {
         target[0].focus();
       }
     }

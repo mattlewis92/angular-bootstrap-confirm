@@ -163,12 +163,13 @@ describe('Confirm popover', function() {
 
   describe('mwlConfirmDirective', function() {
 
-    var element, scope, $compile, $timeout;
+    var element, scope, $compile, $timeout, $document;
 
-    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_) {
+    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_, _$document_) {
       scope = $rootScope.$new();
       $compile = _$compile_;
       $timeout = _$timeout_;
+      $document = _$document_;
     }));
 
     afterEach(function() {
@@ -339,6 +340,16 @@ describe('Confirm popover', function() {
         expect($(popover).is(':visible')).to.be.true;
       });
 
+    });
+
+    it('should allow the handle-focus option to be set as an attribute', function() {
+      createPopover('<button mwl-confirm handle-focus="false">Test</button>');
+      var otherButton = $('<button></button>');
+      $('body').append(otherButton);
+      otherButton.focus();
+      $(element).click();
+      scope.$digest();
+      expect(otherButton[0]).to.equal($document[0].activeElement);
     });
 
   });
