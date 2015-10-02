@@ -1,3 +1,6 @@
+# 0.4.1 (2015-10-02)
+* Allow handle-focus to be set to false if set as an attribute.
+
 # 0.4.0 (2015-09-28)
 * Auto focus the confirm button when opening the popover. Thanks to @andreptb! 
 
