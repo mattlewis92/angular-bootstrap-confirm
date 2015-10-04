@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.4.1
+ * @version v0.4.2
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
