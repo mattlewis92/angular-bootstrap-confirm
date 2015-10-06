@@ -57,6 +57,7 @@ npm install --save angular-bootstrap-confirm
 Then add as a dependency to your app:
 
 ```javascript
+// Either require('angular-bootstrap-confirm/src/ui-bootstrap-position') OR require('angular-ui-bootstrap') first!
 angular.module('myApp', [require('angular-bootstrap-confirm')]);
 ```
 
