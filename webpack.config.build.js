@@ -24,7 +24,7 @@ module.exports = {
   externals: {
     angular: 'angular',
     'angular-sanitize': 'angular-sanitize',
-    './ui-bootstrap-position': 'angular-ui-bootstrap'
+    './ui-bootstrap-position': 'angular'
   },
   devtool: MIN ? 'source-map' : null,
   module: {

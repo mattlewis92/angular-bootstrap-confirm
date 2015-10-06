@@ -7,14 +7,14 @@
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("angular"), require("angular-sanitize"), require("angular-ui-bootstrap"));
+		module.exports = factory(require("angular"), require("angular-sanitize"));
 	else if(typeof define === 'function' && define.amd)
-		define(["angular", "angular-sanitize", "angular-ui-bootstrap"], factory);
+		define(["angular", "angular-sanitize"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("angular"), require("angular-sanitize"), require("angular-ui-bootstrap")) : factory(root["angular"], root["angular-sanitize"], root["angular-ui-bootstrap"]);
+		var a = typeof exports === 'object' ? factory(require("angular"), require("angular-sanitize")) : factory(root["angular"], root["angular-sanitize"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -65,7 +65,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var angular = __webpack_require__(1);
 	__webpack_require__(2);
-	__webpack_require__(3);
+	__webpack_require__(1);
 
 	module.exports = angular
 
@@ -233,12 +233,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ }
 /******/ ])
