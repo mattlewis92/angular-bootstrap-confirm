@@ -1,3 +1,6 @@
+# 0.5.0 (2015-10-06)
+* BREAKING (for npm users only): Use dist files when installing through npm. You will now need the `angular-ui-bootstrap` module installed or require the `src/ui-bootstrap-position` file from this module.
+
 # 0.4.2 (2015-10-04)
 * Ignore bower source files
 
