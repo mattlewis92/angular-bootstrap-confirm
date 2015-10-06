@@ -1,17 +1,17 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.4.2
+ * @version v0.5.0
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("angular"), require("angular-sanitize"), require("angular-bootstrap"));
+		module.exports = factory(require("angular"), require("angular-sanitize"), require("angular-ui-bootstrap"));
 	else if(typeof define === 'function' && define.amd)
-		define(["angular", "angular-sanitize", "angular-bootstrap"], factory);
+		define(["angular", "angular-sanitize", "angular-ui-bootstrap"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("angular"), require("angular-sanitize"), require("angular-bootstrap")) : factory(root["angular"], root["angular-sanitize"], root["angular-bootstrap"]);
+		var a = typeof exports === 'object' ? factory(require("angular"), require("angular-sanitize"), require("angular-ui-bootstrap")) : factory(root["angular"], root["angular-sanitize"], root["angular-ui-bootstrap"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
