@@ -1,3 +1,6 @@
+# 0.4.2 (2015-10-04)
+* Ignore bower source files
+
 # 0.4.1 (2015-10-02)
 * Allow handle-focus to be set to false if set as an attribute.
 
