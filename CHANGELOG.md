@@ -1,3 +1,6 @@
+# 0.5.1 (2015-10-09)
+* Support ui-bootstrap 0.14.0 onwards
+
 # 0.5.0 (2015-10-06)
 * BREAKING (for npm users only): Use dist files when installing through npm. You will now need to require the `angular-bootstrap-confirm/src/ui-bootstrap-position` file or the full `angular-ui-bootstrap` module first (See the readme for an example)
 
