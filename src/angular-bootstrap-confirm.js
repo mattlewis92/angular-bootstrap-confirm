@@ -11,10 +11,12 @@ module.exports = angular
     'ui.bootstrap.position'
   ])
 
-  .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $timeout, $position, confirmationPopoverDefaults) {
+  .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $timeout, $injector, confirmationPopoverDefaults) {
     var vm = this;
     vm.defaults = confirmationPopoverDefaults;
     vm.popoverPlacement = vm.placement || vm.defaults.placement;
+    var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
+    var positionService = $injector.get(positionServiceName);
 
     var template = [
       '<div class="popover" ng-class="vm.popoverPlacement">',
@@ -44,7 +46,7 @@ module.exports = angular
     vm.isVisible = false;
 
     function positionPopover() {
-      var position = $position.positionElements($element, popover, vm.popoverPlacement, true);
+      var position = positionService.positionElements($element, popover, vm.popoverPlacement, true);
       position.top += 'px';
       position.left += 'px';
       popover.css(position);

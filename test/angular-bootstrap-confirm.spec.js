@@ -13,7 +13,7 @@ describe('Confirm popover', function() {
 
   beforeEach(angular.mock.module(function($provide) {
 
-    $provide.factory('$position', function() {
+    $provide.factory('$uibPosition', function() {
       return {
         positionElements: function() {
           return {
@@ -36,10 +36,12 @@ describe('Confirm popover', function() {
 
   describe('PopoverConfirmCtrl', function() {
 
-    var scope, element, popover, $document;
+    var scope, element, popover, $document, $injector, $controller;
 
-    beforeEach(inject(function($controller, $rootScope, _$document_) {
+    beforeEach(inject(function(_$controller_, $rootScope, _$document_, _$injector_) {
       $document = _$document_;
+      $injector = _$injector_;
+      $controller = _$controller_;
       var body = $('body');
       scope = $rootScope.$new();
       element = angular.element('<button>Test</button>');
@@ -54,6 +56,16 @@ describe('Confirm popover', function() {
 
     afterEach(function() {
       scope.$destroy();
+    });
+
+    it('should use the $position service if the $uibPosition service is not available', function() {
+      $injector.has = sinon.stub().withArgs('$uibPosition').returns(false);
+      sinon.spy($injector, 'get');
+      $controller('PopoverConfirmCtrl as vm', {
+        $scope: scope,
+        $element: element
+      });
+      expect($injector.get).to.have.been.calledWith('$position');
     });
 
     describe('showPopover', function() {
