@@ -1,6 +1,6 @@
 /**
  * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
- * @version v0.5.0
+ * @version v0.5.1
  * @link https://github.com/mattlewis92/angular-bootstrap-confirm
  * @license MIT
  */
@@ -74,10 +74,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    'ui.bootstrap.position'
 	  ])
 
-	  .controller('PopoverConfirmCtrl', ["$scope", "$element", "$compile", "$document", "$window", "$timeout", "$position", "confirmationPopoverDefaults", function($scope, $element, $compile, $document, $window, $timeout, $position, confirmationPopoverDefaults) {
+	  .controller('PopoverConfirmCtrl', ["$scope", "$element", "$compile", "$document", "$window", "$timeout", "$injector", "confirmationPopoverDefaults", function($scope, $element, $compile, $document, $window, $timeout, $injector, confirmationPopoverDefaults) {
 	    var vm = this;
 	    vm.defaults = confirmationPopoverDefaults;
 	    vm.popoverPlacement = vm.placement || vm.defaults.placement;
+	    var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
+	    var positionService = $injector.get(positionServiceName);
 
 	    var template = [
 	      '<div class="popover" ng-class="vm.popoverPlacement">',
@@ -107,7 +109,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    vm.isVisible = false;
 
 	    function positionPopover() {
-	      var position = $position.positionElements($element, popover, vm.popoverPlacement, true);
+	      var position = positionService.positionElements($element, popover, vm.popoverPlacement, true);
 	      position.top += 'px';
 	      position.left += 'px';
 	      popover.css(position);

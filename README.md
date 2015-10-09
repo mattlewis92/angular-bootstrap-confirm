@@ -29,7 +29,7 @@ The calendar has a few dependencies, these are as follows, and must be included 
 
 * [AngularJS](https://angularjs.org/) 1.3+
 * [Bootstrap](http://getbootstrap.com/) 3+ (CSS only)
-* [ui-bootstrap](http://angular-ui.github.io/bootstrap/) (Only the $position service is required. If you don't want to include the entire ui-bootstrap library the position service is included as a standalone file in this repo in src/ui-bootstrap-position.js)
+* [ui-bootstrap](http://angular-ui.github.io/bootstrap/) (Only the $uibPosition service is required. If you don't want to include the entire ui-bootstrap library the position service is included as a standalone file in this repo in src/ui-bootstrap-position.js)
 
 You can install through bower:
 
