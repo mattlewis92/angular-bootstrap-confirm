@@ -31,7 +31,6 @@
   "homepage": "https://github.com/mattlewis92/angular-bootstrap-confirm#readme",
   "devDependencies": {
     "angular-mocks": ">=1.3.0 <1.5",
-    "ejs": "~2.3.3",
     "eslint": "~1.7.3",
     "eslint-config-mwl": "~0.3.0",
     "eslint-loader": "~1.1.0",
