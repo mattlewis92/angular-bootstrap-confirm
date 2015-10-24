@@ -20,7 +20,8 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: MIN ? 'angular-bootstrap-confirm.min.js' : 'angular-bootstrap-confirm.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: 'angularBootstrapConfirmModuleName'
   },
   externals: {
     angular: 'angular',
