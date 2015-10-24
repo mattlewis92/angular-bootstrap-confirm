@@ -1,3 +1,6 @@
+# 0.5.2 (2015-10-24)
+* Don't leak the module name characters into the global space
+
 # 0.5.1 (2015-10-09)
 * Support ui-bootstrap 0.14.0 onwards
 

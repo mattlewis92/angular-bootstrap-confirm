@@ -1,17 +1,18 @@
-var webpack = require('webpack');
-var ejs = require('ejs');
-var MIN = process.argv.indexOf('-p') > -1;
+'use strict';
+
+const webpack = require('webpack');
+const MIN = process.argv.indexOf('-p') > -1;
 
 function getBanner() {
-  var pkg = require('./bower.json');
-  var banner = ['/**',
-    ' * <%= pkg.name %> - <%= pkg.description %>',
-    ' * @version v<%= pkg.version %>',
-    ' * @link <%= pkg.homepage %>',
-    ' * @license <%= pkg.license %>',
-    ' */',
-    ''].join('\n');
-  return ejs.render(banner, {pkg: pkg});
+  const pkg = require('./bower.json');
+  return `
+  /**
+   * ${pkg.name} - ${pkg.description}
+   * @version v${pkg.version}
+   * @link ${pkg.homepage}
+   * @license ${pkg.license}
+   */
+`.trim();
 }
 
 module.exports = {
@@ -19,7 +20,8 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: MIN ? 'angular-bootstrap-confirm.min.js' : 'angular-bootstrap-confirm.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: 'angularBootstrapConfirmModuleName'
   },
   externals: {
     angular: 'angular',
