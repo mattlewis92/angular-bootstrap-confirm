@@ -364,6 +364,18 @@ describe('Confirm popover', function() {
       expect(otherButton[0]).to.equal($document[0].activeElement);
     });
 
+    it('should override the popover template', function() {
+      var templateHtml = '<div>Template Override</div>';
+
+      angular.mock.module('mwl.confirm')
+        .run(function(confirmationPopoverDefaults) {
+          confirmationPopoverDefaults.template = templateHtml;
+        });
+
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+      expect($(popover).html()).to.equal(templateHtml);
+    });
+
   });
 
 });
