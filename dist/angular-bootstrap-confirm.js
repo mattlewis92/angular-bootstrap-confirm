@@ -1,9 +1,9 @@
 /**
-   * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
-   * @version v0.5.2
-   * @link https://github.com/mattlewis92/angular-bootstrap-confirm
-   * @license MIT
-   */
+ * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
+ * @version v0.5.3
+ * @link https://github.com/mattlewis92/angular-bootstrap-confirm
+ * @license MIT
+ */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("angular"), require("angular-sanitize"));
@@ -61,7 +61,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
 	var angular = __webpack_require__(1);
 	__webpack_require__(2);
 	__webpack_require__(1);
@@ -80,7 +79,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
 	    var positionService = $injector.get(positionServiceName);
 
-	    var template = [
+	    var template = angular.isDefined(vm.defaults.template) ? vm.defaults.template : [
 	      '<div class="popover" ng-class="vm.popoverPlacement">',
 	        '<div class="arrow"></div>',
 	        '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
@@ -88,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          '<p ng-bind-html="vm.message"></p>',
 	          '<div class="row">',
 	            '<div class="col-xs-6">',
-	              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
+	              '<button class="btn btn-block confirm-button" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
 	              'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
 	            '</div>',
 	            '<div class="col-xs-6">',
@@ -125,7 +124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!vm.isVisible) {
 	        popover.css({display: 'block'});
 	        positionPopover();
-	        applyFocus(popover.find('button'));
+	        applyFocus(popover.find('button.confirm-button'));
 	        vm.isVisible = true;
 	      }
 	      vm.isOpen = true;

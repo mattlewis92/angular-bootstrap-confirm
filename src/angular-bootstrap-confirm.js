@@ -1,5 +1,4 @@
 'use strict';
-
 var angular = require('angular');
 require('angular-sanitize');
 require('./ui-bootstrap-position');
@@ -18,7 +17,7 @@ module.exports = angular
     var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
     var positionService = $injector.get(positionServiceName);
 
-    var template = [
+    var template = angular.isDefined(vm.defaults.template) ? vm.defaults.template : [
       '<div class="popover" ng-class="vm.popoverPlacement">',
         '<div class="arrow"></div>',
         '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
@@ -26,7 +25,7 @@ module.exports = angular
           '<p ng-bind-html="vm.message"></p>',
           '<div class="row">',
             '<div class="col-xs-6">',
-              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
+              '<button class="btn btn-block confirm-button" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
               'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
             '</div>',
             '<div class="col-xs-6">',
@@ -63,7 +62,7 @@ module.exports = angular
       if (!vm.isVisible) {
         popover.css({display: 'block'});
         positionPopover();
-        applyFocus(popover.find('button'));
+        applyFocus(popover.find('button.confirm-button'));
         vm.isVisible = true;
       }
       vm.isOpen = true;
