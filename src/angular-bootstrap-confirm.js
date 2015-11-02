@@ -18,7 +18,7 @@ module.exports = angular
     var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
     var positionService = $injector.get(positionServiceName);
 
-    var template = [
+    var template = angular.isDefined(vm.defaults.template) ? vm.defaults.template : [
       '<div class="popover" ng-class="vm.popoverPlacement">',
         '<div class="arrow"></div>',
         '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
@@ -26,11 +26,11 @@ module.exports = angular
           '<p ng-bind-html="vm.message"></p>',
           '<div class="row">',
             '<div class="col-xs-6">',
-              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
+              '<button class="btn btn-block confirm-button" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
               'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
             '</div>',
             '<div class="col-xs-6">',
-              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
+              '<button class="btn btn-block cancel-button" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
               'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
             '</div>',
           '</div>',
@@ -63,7 +63,7 @@ module.exports = angular
       if (!vm.isVisible) {
         popover.css({display: 'block'});
         positionPopover();
-        applyFocus(popover.find('button'));
+        applyFocus(popover[0].getElementsByClassName('confirm-button'));
         vm.isVisible = true;
       }
       vm.isOpen = true;
