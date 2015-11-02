@@ -362,14 +362,44 @@ describe('Confirm popover', function() {
       expect(otherButton[0]).to.equal($document[0].activeElement);
     });
 
-    it('should override the popover template', inject(function(confirmationPopoverDefaults) {
-      var templateHtml = '<div>Template Override</div>';
+    it('should have confirm button on the left with default popover template', function() {
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+
+      var confirmButton = $($(popover).find('button')[0]).text();
+      var cancelButton = $($(popover).find('button')[1]).text();
+      expect(confirmButton).to.equal('Confirm');
+      expect(cancelButton).to.equal('Cancel');
+    });
+
+    it('should override the popover template to make the cancel button first', inject(function(confirmationPopoverDefaults) {
+      expect(confirmationPopoverDefaults).to.exist;
+      expect(confirmationPopoverDefaults).to.not.be.undefined;
+      var templateHtml =
+        '<div class="popover" ng-class="vm.popoverPlacement">' +
+        '<div class="arrow"></div>' +
+        '<h3 class="popover-title" ng-bind-html="vm.title"></h3>' +
+        '<div class="popover-content">' +
+        '<p ng-bind-html="vm.message"></p>' +
+        '<div class="row">' +
+        '<div class="col-xs-6">' +
+        '<button class="btn btn-block cancel-button" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
+        'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>' +
+        '</div>' +
+        '<div class="col-xs-6">' +
+        '<button class="btn btn-block confirm-button" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
+        'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
       confirmationPopoverDefaults.template = templateHtml;
 
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect($(popover).html()).to.equal(templateHtml);
+      var cancelButton = $($(popover).find('button')[0]).text();
+      var confirmButton = $($(popover).find('button')[1]).text();
+      expect(cancelButton).to.equal('Cancel');
+      expect(confirmButton).to.equal('Confirm');
     }));
-
   });
 
 });
