@@ -1,4 +1,5 @@
 'use strict';
+
 var angular = require('angular');
 require('angular-sanitize');
 require('./ui-bootstrap-position');
@@ -29,7 +30,7 @@ module.exports = angular
               'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
             '</div>',
             '<div class="col-xs-6">',
-              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
+              '<button class="btn btn-block cancel-button" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
               'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
             '</div>',
           '</div>',
@@ -62,7 +63,7 @@ module.exports = angular
       if (!vm.isVisible) {
         popover.css({display: 'block'});
         positionPopover();
-        applyFocus(popover.find('button.confirm-button'));
+        applyFocus(popover[0].getElementsByClassName('confirm-button'));
         vm.isVisible = true;
       }
       vm.isOpen = true;

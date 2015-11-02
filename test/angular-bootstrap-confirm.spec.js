@@ -8,7 +8,6 @@ var angular = require('angular');
 require('angular-mocks');
 
 describe('Confirm popover', function() {
-
   beforeEach(angular.mock.module('mwl.confirm'));
 
   beforeEach(angular.mock.module(function($provide) {
@@ -23,15 +22,14 @@ describe('Confirm popover', function() {
         }
       };
     });
-
   }));
 
   function getConfirmButton(popover) {
-    return $(popover).find('.btn:first');
+    return $(popover).find('.confirm-button');
   }
 
   function getCancelButton(popover) {
-    return $(popover).find('.popover-content .row :nth-child(2) .btn');
+    return $(popover).find('.cancel-button');
   }
 
   describe('PopoverConfirmCtrl', function() {
@@ -364,17 +362,13 @@ describe('Confirm popover', function() {
       expect(otherButton[0]).to.equal($document[0].activeElement);
     });
 
-    it('should override the popover template', function() {
+    it('should override the popover template', inject(function(confirmationPopoverDefaults) {
       var templateHtml = '<div>Template Override</div>';
-
-      angular.mock.module('mwl.confirm')
-        .run(function(confirmationPopoverDefaults) {
-          confirmationPopoverDefaults.template = templateHtml;
-        });
+      confirmationPopoverDefaults.template = templateHtml;
 
       var popover = createPopover('<button mwl-confirm>Test</button>');
       expect($(popover).html()).to.equal(templateHtml);
-    });
+    }));
 
   });
 
