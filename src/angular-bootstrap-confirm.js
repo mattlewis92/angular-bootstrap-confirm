@@ -138,6 +138,7 @@ module.exports = angular
         templateUrl: '@'
       }
     };
+
   })
 
   .value('confirmationPopoverDefaults', {
