@@ -1,3 +1,6 @@
+# 0.6.0 (2015-11-06)
+* Allow the default popover template to be changed.
+
 # 0.5.2 (2015-10-24)
 * Don't leak the module name characters into the global space
 

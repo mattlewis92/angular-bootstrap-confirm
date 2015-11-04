@@ -1,8 +1,10 @@
 'use strict';
 
 var angular = require('angular');
+var defaultPopoverTemplate = require('./angular-bootstrap-confirm.html');
 require('angular-sanitize');
 require('./ui-bootstrap-position');
+var DEFAULT_POPOVER_URL = 'angular-bootstrap-confirm.html';
 
 module.exports = angular
 
@@ -11,37 +13,26 @@ module.exports = angular
     'ui.bootstrap.position'
   ])
 
-  .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $timeout, $injector, confirmationPopoverDefaults) {
+  .run(function($templateCache) {
+    $templateCache.put(DEFAULT_POPOVER_URL, defaultPopoverTemplate);
+  })
+
+  .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $timeout,
+                                             $injector, $templateRequest, confirmationPopoverDefaults) {
     var vm = this;
     vm.defaults = confirmationPopoverDefaults;
     vm.popoverPlacement = vm.placement || vm.defaults.placement;
     var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
     var positionService = $injector.get(positionServiceName);
+    var popover;
+    var templateUrl = vm.templateUrl || confirmationPopoverDefaults.templateUrl;
 
-    var template = angular.isDefined(vm.defaults.template) ? vm.defaults.template : [
-      '<div class="popover" ng-class="vm.popoverPlacement">',
-        '<div class="arrow"></div>',
-        '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
-        '<div class="popover-content">',
-          '<p ng-bind-html="vm.message"></p>',
-          '<div class="row">',
-            '<div class="col-xs-6">',
-              '<button class="btn btn-block confirm-button" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
-              'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
-            '</div>',
-            '<div class="col-xs-6">',
-              '<button class="btn btn-block cancel-button" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
-              'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
-            '</div>',
-          '</div>',
-        '</div>',
-      '</div>'
-    ].join('\n');
-
-    var popover = angular.element(template);
-    popover.css('display', 'none');
-    $compile(popover)($scope);
-    $document.find('body').append(popover);
+    $templateRequest(templateUrl).then(function(template) {
+      popover = angular.element(template);
+      popover.css('display', 'none');
+      $compile(popover)($scope);
+      $document.find('body').append(popover);
+    });
 
     vm.isVisible = false;
 
@@ -144,7 +135,8 @@ module.exports = angular
         confirmButtonType: '@',
         cancelButtonType: '@',
         isOpen: '=?',
-        handleFocus: '='
+        handleFocus: '=',
+        templateUrl: '@'
       }
     };
   })
@@ -155,7 +147,8 @@ module.exports = angular
     confirmButtonType: 'success',
     cancelButtonType: 'default',
     placement: 'top',
-    handleFocus: true
+    handleFocus: true,
+    templateUrl: DEFAULT_POPOVER_URL
   })
 
   .name;

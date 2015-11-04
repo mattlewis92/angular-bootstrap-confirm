@@ -32,13 +32,16 @@ module.exports = {
   module: {
     preLoaders: [{
       test: /.*\.js$/,
-      loaders: ['eslint'],
+      loader: 'eslint',
       exclude: /node_modules/
     }],
     loaders: [{
       test: /.*\.js$/,
-      loaders: ['ng-annotate'],
+      loader: 'ng-annotate',
       exclude: /node_modules/
+    }, {
+      test: /\.html$/,
+      loader: 'raw'
     }]
   },
   plugins: [
