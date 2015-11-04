@@ -24,23 +24,22 @@ module.exports = angular
     vm.popoverPlacement = vm.placement || vm.defaults.placement;
     var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
     var positionService = $injector.get(positionServiceName);
-    var popover;
     var templateUrl = vm.templateUrl || confirmationPopoverDefaults.templateUrl;
 
     $templateRequest(templateUrl).then(function(template) {
-      popover = angular.element(template);
-      popover.css('display', 'none');
-      $compile(popover)($scope);
-      $document.find('body').append(popover);
+      vm.popover = angular.element(template);
+      vm.popover.css('display', 'none');
+      $compile(vm.popover)($scope);
+      $document.find('body').append(vm.popover);
     });
 
     vm.isVisible = false;
 
     function positionPopover() {
-      var position = positionService.positionElements($element, popover, vm.popoverPlacement, true);
+      var position = positionService.positionElements($element, vm.popover, vm.popoverPlacement, true);
       position.top += 'px';
       position.left += 'px';
-      popover.css(position);
+      vm.popover.css(position);
     }
 
     function applyFocus(target) {
@@ -52,9 +51,9 @@ module.exports = angular
 
     function showPopover() {
       if (!vm.isVisible) {
-        popover.css({display: 'block'});
+        vm.popover.css({display: 'block'});
         positionPopover();
-        applyFocus(popover[0].getElementsByClassName('confirm-button'));
+        applyFocus(vm.popover[0].getElementsByClassName('confirm-button'));
         vm.isVisible = true;
       }
       vm.isOpen = true;
@@ -62,7 +61,7 @@ module.exports = angular
 
     function hidePopover(focusElement) {
       if (vm.isVisible) {
-        popover.css({display: 'none'});
+        vm.popover.css({display: 'none'});
         vm.isVisible = false;
         if (focusElement) {
           applyFocus($element);
@@ -81,7 +80,7 @@ module.exports = angular
     }
 
     function documentClick(event) {
-      if (vm.isVisible && !popover[0].contains(event.target) && !$element[0].contains(event.target)) {
+      if (vm.isVisible && !vm.popover[0].contains(event.target) && !$element[0].contains(event.target)) {
         hidePopover();
         $scope.$apply();
       }
@@ -109,7 +108,7 @@ module.exports = angular
     $document.bind('touchend', documentClick);
 
     $scope.$on('$destroy', function() {
-      popover.remove();
+      vm.popover.remove();
       $element.unbind('click', togglePopover);
       $window.removeEventListener('resize', positionPopover);
       $document.unbind('click', documentClick);
