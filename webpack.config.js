@@ -23,8 +23,12 @@ module.exports = {
   module: {
     preLoaders: [{
       test: /.*\.js$/,
-      loaders: ['eslint'],
+      loader: 'eslint',
       exclude: /node_modules/
+    }],
+    loaders: [{
+      test: /\.html$/,
+      loader: 'raw'
     }]
   },
   devServer: {

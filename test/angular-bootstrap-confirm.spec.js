@@ -8,7 +8,6 @@ var angular = require('angular');
 require('angular-mocks');
 
 describe('Confirm popover', function() {
-
   beforeEach(angular.mock.module('mwl.confirm'));
 
   beforeEach(angular.mock.module(function($provide) {
@@ -23,15 +22,14 @@ describe('Confirm popover', function() {
         }
       };
     });
-
   }));
 
   function getConfirmButton(popover) {
-    return $(popover).find('.btn:first');
+    return $(popover).find('.confirm-button');
   }
 
   function getCancelButton(popover) {
-    return $(popover).find('.popover-content .row :nth-child(2) .btn');
+    return $(popover).find('.cancel-button');
   }
 
   describe('PopoverConfirmCtrl', function() {
@@ -50,6 +48,7 @@ describe('Confirm popover', function() {
         $scope: scope,
         $element: element
       });
+      scope.$apply();
       popover = body.find('.popover:first');
 
     }));
@@ -65,6 +64,7 @@ describe('Confirm popover', function() {
         $scope: scope,
         $element: element
       });
+      scope.$digest();
       expect($injector.get).to.have.been.calledWith('$position');
     });
 
@@ -364,6 +364,32 @@ describe('Confirm popover', function() {
       expect(otherButton[0]).to.equal($document[0].activeElement);
     });
 
+    it('should have confirm button on the left with default popover template', function() {
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+      var confirmButton = $($(popover).find('button')[0]).text();
+      var cancelButton = $($(popover).find('button')[1]).text();
+      expect(confirmButton).to.equal('Confirm');
+      expect(cancelButton).to.equal('Cancel');
+    });
+
+    it('should allow the popover default template url to be changed', inject(function($templateCache, confirmationPopoverDefaults) {
+      var customTemplateUrl = 'my-custom-popover.html';
+      var customTemplate = '<div class="popover">Custom</div>';
+      $templateCache.put(customTemplateUrl, customTemplate);
+      var originalUrl = confirmationPopoverDefaults.templateUrl;
+      confirmationPopoverDefaults.templateUrl = customTemplateUrl;
+      var popover = createPopover('<button mwl-confirm>Test</button>');
+      expect(popover.html()).to.equal('Custom');
+      confirmationPopoverDefaults.templateUrl = originalUrl;
+    }));
+
+    it('should allow a per instance template url to be set', inject(function($templateCache) {
+      var customTemplateUrl = 'my-custom-popover.html';
+      var customTemplate = '<div class="popover">Instance template</div>';
+      $templateCache.put(customTemplateUrl, customTemplate);
+      var popover = createPopover('<button mwl-confirm template-url="' + customTemplateUrl + '">Test</button>');
+      expect(popover.html()).to.equal('Instance template');
+    }));
   });
 
 });

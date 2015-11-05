@@ -1,9 +1,12 @@
 language: node_js
 
 node_js:
-- '0.12'
+- '4.2'
 
 script: npm test
+
+notifications:
+  email: false
 
 env:
   secure: NCjKm0qP7sNuXKvKjLVxBdnbVJHyXfPL2/Bc3+3P1s5GTnG/MAEqmM3MKYQvceBKCa8V6WfPmooVdv3qvVHGlLXSUSvKdNFhAHwPmZ5hbXbAyakakLj2P4Km1hFuTcGhROZwKOZM/LPWgeDAt46Dv+qB3Z62ROmI9bV61TPDs8Y=

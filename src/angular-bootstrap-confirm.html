@@ -1,0 +1,25 @@
+<div class="popover" ng-class="vm.popoverPlacement">
+  <div class="arrow"></div>
+  <h3 class="popover-title" ng-bind-html="vm.title"></h3>
+  <div class="popover-content">
+    <p ng-bind-html="vm.message"></p>
+    <div class="row">
+      <div class="col-xs-6">
+        <button
+          class="btn btn-block confirm-button"
+          ng-class="'btn-' + (vm.confirmButtonType || vm.defaults.confirmButtonType)"
+          ng-click="vm.onConfirm(); vm.hidePopover()"
+          ng-bind-html="vm.confirmText || vm.defaults.confirmText">
+        </button>
+      </div>
+      <div class="col-xs-6">
+        <button
+          class="btn btn-block cancel-button"
+          ng-class="'btn-' + (vm.cancelButtonType || vm.defaults.cancelButtonType)"
+          ng-click="vm.onCancel(); vm.hidePopover(true)"
+          ng-bind-html="vm.cancelText || vm.defaults.cancelText">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

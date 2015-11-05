@@ -28,7 +28,7 @@ Pull requests are welcome.
 The calendar has a few dependencies, these are as follows, and must be included BEFORE the plugin files:
 
 * [AngularJS](https://angularjs.org/) 1.3+
-* [Bootstrap](http://getbootstrap.com/) 3+ (CSS only)
+* [Bootstrap](http://getbootstrap.com/) 3+ (CSS only - optional if you use a custom template)
 * [ui-bootstrap](http://angular-ui.github.io/bootstrap/) (Only the $uibPosition service is required. If you don't want to include the entire ui-bootstrap library the position service is included as a standalone file in this repo in src/ui-bootstrap-position.js)
 
 You can install through bower:
@@ -118,12 +118,15 @@ A 2-way bound variable to control if the popover is currently open or not.
 #### handle-focus
 Whether to auto focus the confirm button. Default true.
 
+#### template-url
+A custom popover template. Useful for if you're not using bootstrap. It can be configured globally by setting `confirmationPopoverDefaults.templateUrl`
+
 ### confirmationPopoverDefaults
 There is also a value you can use to set the defaults like so:
 ```javascript
 angular.module('myModule').run(function(confirmationPopoverDefaults) {
-  console.log(confirmationPopoverDefaults); //View all the defaults you can change
-  confirmationPopoverDefaults.confirmButtonType = 'danger'; //set the default confirm button type to be danger
+  console.log(confirmationPopoverDefaults); // View all the defaults you can change
+  confirmationPopoverDefaults.confirmButtonType = 'danger'; // Set the default confirm button type to be danger
 });
 ```
 
