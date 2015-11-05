@@ -1,6 +1,6 @@
 /**
    * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
-   * @version v0.5.2
+   * @version v0.6.0
    * @link https://github.com/mattlewis92/angular-bootstrap-confirm
    * @license MIT
    */
@@ -13,7 +13,7 @@
 		exports["angularBootstrapConfirmModuleName"] = factory(require("angular"), require("angular-sanitize"));
 	else
 		root["angularBootstrapConfirmModuleName"] = factory(root["angular"], root["angular-sanitize"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,8 +63,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var angular = __webpack_require__(1);
-	__webpack_require__(2);
+	var defaultPopoverTemplate = __webpack_require__(2);
+	__webpack_require__(3);
 	__webpack_require__(1);
+	var DEFAULT_POPOVER_URL = 'angular-bootstrap-confirm.html';
 
 	module.exports = angular
 
@@ -73,45 +75,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    'ui.bootstrap.position'
 	  ])
 
-	  .controller('PopoverConfirmCtrl', ["$scope", "$element", "$compile", "$document", "$window", "$timeout", "$injector", "confirmationPopoverDefaults", function($scope, $element, $compile, $document, $window, $timeout, $injector, confirmationPopoverDefaults) {
+	  .run(["$templateCache", function($templateCache) {
+	    $templateCache.put(DEFAULT_POPOVER_URL, defaultPopoverTemplate);
+	  }])
+
+	  .controller('PopoverConfirmCtrl', ["$scope", "$element", "$compile", "$document", "$window", "$timeout", "$injector", "$templateRequest", "confirmationPopoverDefaults", function($scope, $element, $compile, $document, $window, $timeout,
+	                                             $injector, $templateRequest, confirmationPopoverDefaults) {
 	    var vm = this;
 	    vm.defaults = confirmationPopoverDefaults;
 	    vm.popoverPlacement = vm.placement || vm.defaults.placement;
 	    var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
 	    var positionService = $injector.get(positionServiceName);
+	    var templateUrl = vm.templateUrl || confirmationPopoverDefaults.templateUrl;
 
-	    var template = [
-	      '<div class="popover" ng-class="vm.popoverPlacement">',
-	        '<div class="arrow"></div>',
-	        '<h3 class="popover-title" ng-bind-html="vm.title"></h3>',
-	        '<div class="popover-content">',
-	          '<p ng-bind-html="vm.message"></p>',
-	          '<div class="row">',
-	            '<div class="col-xs-6">',
-	              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.confirmButtonType || vm.defaults.confirmButtonType)" ' +
-	              'ng-click="vm.onConfirm(); vm.hidePopover()" ng-bind-html="vm.confirmText || vm.defaults.confirmText"></button>',
-	            '</div>',
-	            '<div class="col-xs-6">',
-	              '<button class="btn btn-block" ng-class="\'btn-\' + (vm.cancelButtonType || vm.defaults.cancelButtonType)" ' +
-	              'ng-click="vm.onCancel(); vm.hidePopover(true)" ng-bind-html="vm.cancelText || vm.defaults.cancelText"></button>',
-	            '</div>',
-	          '</div>',
-	        '</div>',
-	      '</div>'
-	    ].join('\n');
-
-	    var popover = angular.element(template);
-	    popover.css('display', 'none');
-	    $compile(popover)($scope);
-	    $document.find('body').append(popover);
+	    $templateRequest(templateUrl).then(function(template) {
+	      vm.popover = angular.element(template);
+	      vm.popover.css('display', 'none');
+	      $compile(vm.popover)($scope);
+	      $document.find('body').append(vm.popover);
+	    });
 
 	    vm.isVisible = false;
 
 	    function positionPopover() {
-	      var position = positionService.positionElements($element, popover, vm.popoverPlacement, true);
+	      var position = positionService.positionElements($element, vm.popover, vm.popoverPlacement, true);
 	      position.top += 'px';
 	      position.left += 'px';
-	      popover.css(position);
+	      vm.popover.css(position);
 	    }
 
 	    function applyFocus(target) {
@@ -123,9 +113,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    function showPopover() {
 	      if (!vm.isVisible) {
-	        popover.css({display: 'block'});
+	        vm.popover.css({display: 'block'});
 	        positionPopover();
-	        applyFocus(popover.find('button'));
+	        applyFocus(vm.popover[0].getElementsByClassName('confirm-button'));
 	        vm.isVisible = true;
 	      }
 	      vm.isOpen = true;
@@ -133,7 +123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    function hidePopover(focusElement) {
 	      if (vm.isVisible) {
-	        popover.css({display: 'none'});
+	        vm.popover.css({display: 'none'});
 	        vm.isVisible = false;
 	        if (focusElement) {
 	          applyFocus($element);
@@ -152,7 +142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function documentClick(event) {
-	      if (vm.isVisible && !popover[0].contains(event.target) && !$element[0].contains(event.target)) {
+	      if (vm.isVisible && !vm.popover[0].contains(event.target) && !$element[0].contains(event.target)) {
 	        hidePopover();
 	        $scope.$apply();
 	      }
@@ -180,7 +170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    $document.bind('touchend', documentClick);
 
 	    $scope.$on('$destroy', function() {
-	      popover.remove();
+	      vm.popover.remove();
 	      $element.unbind('click', togglePopover);
 	      $window.removeEventListener('resize', positionPopover);
 	      $document.unbind('click', documentClick);
@@ -206,9 +196,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        confirmButtonType: '@',
 	        cancelButtonType: '@',
 	        isOpen: '=?',
-	        handleFocus: '='
+	        handleFocus: '=',
+	        templateUrl: '@'
 	      }
 	    };
+
 	  })
 
 	  .value('confirmationPopoverDefaults', {
@@ -217,7 +209,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    confirmButtonType: 'success',
 	    cancelButtonType: 'default',
 	    placement: 'top',
-	    handleFocus: true
+	    handleFocus: true,
+	    templateUrl: DEFAULT_POPOVER_URL
 	  })
 
 	  .name;
@@ -233,7 +226,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+	module.exports = "<div class=\"popover\" ng-class=\"vm.popoverPlacement\">\n  <div class=\"arrow\"></div>\n  <h3 class=\"popover-title\" ng-bind-html=\"vm.title\"></h3>\n  <div class=\"popover-content\">\n    <p ng-bind-html=\"vm.message\"></p>\n    <div class=\"row\">\n      <div class=\"col-xs-6\">\n        <button\n          class=\"btn btn-block confirm-button\"\n          ng-class=\"'btn-' + (vm.confirmButtonType || vm.defaults.confirmButtonType)\"\n          ng-click=\"vm.onConfirm(); vm.hidePopover()\"\n          ng-bind-html=\"vm.confirmText || vm.defaults.confirmText\">\n        </button>\n      </div>\n      <div class=\"col-xs-6\">\n        <button\n          class=\"btn btn-block cancel-button\"\n          ng-class=\"'btn-' + (vm.cancelButtonType || vm.defaults.cancelButtonType)\"\n          ng-click=\"vm.onCancel(); vm.hidePopover(true)\"\n          ng-bind-html=\"vm.cancelText || vm.defaults.cancelText\">\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n"
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ }
 /******/ ])
