@@ -25,11 +25,11 @@ var webpackConfig = {
 };
 
 if (MIN) {
-  webpackConfig.module.loaders = [{
+  webpackConfig.module.loaders.push({
     test: /.*src.*\.js$/,
     loaders: ['uglify', 'ng-annotate'],
     exclude: /node_modules/
-  }];
+  });
 }
 
 module.exports = function(config) {
