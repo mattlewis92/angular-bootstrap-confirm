@@ -76,6 +76,13 @@ describe('Confirm popover', function() {
         expect(popover.is(':visible')).to.be.true;
       });
 
+      it('should not show the popover when isDisabled is true', function() {
+        scope.vm.isDisabled = true;
+        expect(popover.is(':visible')).to.be.false;
+        scope.vm.showPopover();
+        expect(popover.is(':visible')).to.be.false;
+      });
+
     });
 
     describe('hidePopover', function() {

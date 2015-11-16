@@ -50,7 +50,7 @@ module.exports = angular
     }
 
     function showPopover() {
-      if (!vm.isVisible) {
+      if (!vm.isVisible && !vm.isDisabled) {
         vm.popover.css({display: 'block'});
         positionPopover();
         applyFocus(vm.popover[0].getElementsByClassName('confirm-button'));
@@ -135,7 +135,8 @@ module.exports = angular
         cancelButtonType: '@',
         isOpen: '=?',
         handleFocus: '=',
-        templateUrl: '@'
+        templateUrl: '@',
+        isDisabled: '='
       }
     };
 

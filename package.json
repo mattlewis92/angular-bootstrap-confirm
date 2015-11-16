@@ -1,6 +1,6 @@
 {
   "name": "angular-bootstrap-confirm",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Displays a bootstrap confirmation popover when clicking the given element.",
   "browser": "dist/angular-bootstrap-confirm.js",
   "scripts": {
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/mattlewis92/angular-bootstrap-confirm#readme",
   "devDependencies": {
     "angular-mocks": ">=1.3.0",
-    "eslint": "~1.8.0",
+    "eslint": "~1.9.0",
     "eslint-config-mwl": "~0.3.0",
     "eslint-loader": "~1.1.0",
     "eslint-plugin-angular": "~0.13.0",

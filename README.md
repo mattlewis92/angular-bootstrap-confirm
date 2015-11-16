@@ -118,6 +118,9 @@ A 2-way bound variable to control if the popover is currently open or not.
 #### handle-focus
 Whether to auto focus the confirm button. Default true.
 
+#### is-disabled
+Whether to disable showing the popover. Default false.
+
 #### template-url
 A custom popover template. Useful for if you're not using bootstrap. It can be configured globally by setting `confirmationPopoverDefaults.templateUrl`
 
