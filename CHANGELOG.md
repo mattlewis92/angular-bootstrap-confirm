@@ -1,3 +1,6 @@
+# 0.7.0 (2015-11-16)
+* Add an `is-disabled` attribute for disabling the popover.
+
 # 0.6.0 (2015-11-05)
 * Allow the default popover template to be changed either globally in the `confirmationPopoverDefaults.templateUrl` property or by passing a `template-url` property to the popover.
 * Expose the popover element on the controller so other directives can access it
