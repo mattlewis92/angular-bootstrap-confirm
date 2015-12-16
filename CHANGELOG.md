@@ -1,3 +1,20 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/0.7.0...v1.0.0) (2015-12-16)
+
+
+### Features
+
+* Stable API!
+* **focus-confirm-button:** Rename handle-focus option to focus-confirm-button ([6455cc2](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/6455cc2))
+
+### BREAKING CHANGES
+
+* focus-confirm-button: The handle-focus directive option has been renamed to focus-confirm-button.
+
+confirmationPopoverDefaults.handleFocus has been renamed to confirmationPopoverDefaults.focusConfirmButton
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/0.7.0...v0.6.0) (2015-11-16)
 * Add an `is-disabled` attribute for disabling the popover.
