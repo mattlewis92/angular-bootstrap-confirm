@@ -1,4 +1,5 @@
-# 0.7.0 (2015-11-16)
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/0.7.0...v0.6.0) (2015-11-16)
 * Add an `is-disabled` attribute for disabling the popover.
 
 # 0.6.0 (2015-11-05)
