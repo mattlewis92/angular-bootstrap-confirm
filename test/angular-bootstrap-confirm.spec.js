@@ -148,7 +148,7 @@ describe('Confirm popover', function() {
 
     });
 
-    describe('handle focus', function() {
+    describe('focus confirm button', function() {
       /*
       * Unfortunately phantomjs won't work with target.is(':focus'). See https://github.com/ariya/phantomjs/issues/10427
       */
@@ -361,8 +361,8 @@ describe('Confirm popover', function() {
 
     });
 
-    it('should allow the handle-focus option to be set as an attribute', function() {
-      createPopover('<button mwl-confirm handle-focus="false">Test</button>');
+    it('should allow the focus-confirm-button option to be set as an attribute', function() {
+      createPopover('<button mwl-confirm focus-confirm-button="false">Test</button>');
       var otherButton = $('<button></button>');
       $('body').append(otherButton);
       otherButton.focus();

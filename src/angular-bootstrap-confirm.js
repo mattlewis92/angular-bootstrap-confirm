@@ -43,7 +43,7 @@ module.exports = angular
     }
 
     function applyFocus(target) {
-      var shouldFocus = angular.isDefined(vm.handleFocus) ? vm.handleFocus : vm.defaults.handleFocus;
+      var shouldFocus = angular.isDefined(vm.focusConfirmButton) ? vm.focusConfirmButton : vm.defaults.focusConfirmButton;
       if (shouldFocus) {
         target[0].focus();
       }
@@ -134,7 +134,7 @@ module.exports = angular
         confirmButtonType: '@',
         cancelButtonType: '@',
         isOpen: '=?',
-        handleFocus: '=',
+        focusConfirmButton: '=',
         templateUrl: '@',
         isDisabled: '='
       }
@@ -148,7 +148,7 @@ module.exports = angular
     confirmButtonType: 'success',
     cancelButtonType: 'default',
     placement: 'top',
-    handleFocus: true,
+    focusConfirmButton: true,
     templateUrl: DEFAULT_POPOVER_URL
   })
 

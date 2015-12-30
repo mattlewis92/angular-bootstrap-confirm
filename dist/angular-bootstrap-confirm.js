@@ -1,6 +1,6 @@
 /**
    * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
-   * @version v0.7.0
+   * @version v1.0.0
    * @link https://github.com/mattlewis92/angular-bootstrap-confirm
    * @license MIT
    */
@@ -105,7 +105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function applyFocus(target) {
-	      var shouldFocus = angular.isDefined(vm.handleFocus) ? vm.handleFocus : vm.defaults.handleFocus;
+	      var shouldFocus = angular.isDefined(vm.focusConfirmButton) ? vm.focusConfirmButton : vm.defaults.focusConfirmButton;
 	      if (shouldFocus) {
 	        target[0].focus();
 	      }
@@ -196,7 +196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        confirmButtonType: '@',
 	        cancelButtonType: '@',
 	        isOpen: '=?',
-	        handleFocus: '=',
+	        focusConfirmButton: '=',
 	        templateUrl: '@',
 	        isDisabled: '='
 	      }
@@ -210,7 +210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    confirmButtonType: 'success',
 	    cancelButtonType: 'default',
 	    placement: 'top',
-	    handleFocus: true,
+	    focusConfirmButton: true,
 	    templateUrl: DEFAULT_POPOVER_URL
 	  })
 
