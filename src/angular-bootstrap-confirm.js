@@ -134,9 +134,9 @@ module.exports = angular
         confirmButtonType: '@',
         cancelButtonType: '@',
         isOpen: '=?',
-        focusConfirmButton: '=',
+        focusConfirmButton: '=?',
         templateUrl: '@',
-        isDisabled: '='
+        isDisabled: '=?'
       }
     };
 
