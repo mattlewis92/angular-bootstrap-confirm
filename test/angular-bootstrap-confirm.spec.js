@@ -359,6 +359,13 @@ describe('Confirm popover', function() {
         expect($(popover).is(':visible')).to.be.true;
       });
 
+      it('should not mark isOpen as true when the popover is disabled', function() {
+        scope.isOpen = false;
+        createPopover('<button mwl-confirm is-open="isOpen" is-disabled="true">Test</button>');
+        $(element).click();
+        expect(scope.isOpen).to.be.false;
+      });
+
     });
 
     it('should allow the focus-confirm-button option to be set as an attribute', function() {
@@ -397,6 +404,7 @@ describe('Confirm popover', function() {
       var popover = createPopover('<button mwl-confirm template-url="' + customTemplateUrl + '">Test</button>');
       expect(popover.html()).to.equal('Instance template');
     }));
+
   });
 
 });

@@ -55,8 +55,8 @@ module.exports = angular
         positionPopover();
         applyFocus(vm.popover[0].getElementsByClassName('confirm-button'));
         vm.isVisible = true;
+        vm.isOpen = true;
       }
-      vm.isOpen = true;
     }
 
     function hidePopover(focusElement) {
@@ -66,8 +66,8 @@ module.exports = angular
         if (focusElement) {
           applyFocus($element);
         }
+        vm.isOpen = false;
       }
-      vm.isOpen = false;
     }
 
     function togglePopover() {
@@ -134,9 +134,9 @@ module.exports = angular
         confirmButtonType: '@',
         cancelButtonType: '@',
         isOpen: '=?',
-        focusConfirmButton: '=',
+        focusConfirmButton: '=?',
         templateUrl: '@',
-        isDisabled: '='
+        isDisabled: '=?'
       }
     };
 
