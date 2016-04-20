@@ -38,6 +38,7 @@
     "bootstrap": "^3.3.6",
     "commitizen": "~2.7.6",
     "conventional-changelog": "~1.1.0",
+    "conventional-changelog-cli": "~1.1.1",
     "cz-conventional-changelog": "~1.1.5",
     "eslint": "~2.8.0",
     "eslint-config-mwl": "~0.4.0",
