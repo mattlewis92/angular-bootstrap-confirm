@@ -1,3 +1,14 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/1.0.0...v1.0.1) (2016-04-20)
+
+
+### Bug Fixes
+
+* mark `focusConfirmButton` and `isDisabled` as optional ([7c3dc30](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/7c3dc30))
+* **isOpen:** only update `isOpen` when the popover visibility is actually changed ([6d78209](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/6d78209)), closes [#18](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/18)
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/0.7.0...v1.0.0) (2015-12-16)
 
