@@ -34,7 +34,7 @@ describe('Confirm popover', function() {
 
   describe('PopoverConfirmCtrl', function() {
 
-    var scope, element, popover, $document, $injector, $controller;
+    var scope, element, popover, $document, $injector, $controller, ctrl;
 
     beforeEach(inject(function(_$controller_, $rootScope, _$document_, _$injector_) {
       $document = _$document_;
@@ -44,9 +44,12 @@ describe('Confirm popover', function() {
       scope = $rootScope.$new();
       element = angular.element('<button>Test</button>');
       body.append(element);
-      $controller('PopoverConfirmCtrl as vm', {
+      ctrl = $controller('PopoverConfirmCtrl', {
         $scope: scope,
-        $element: element
+        $element: element,
+        $attrs: {
+          isDisabled: 'isDisabled'
+        }
       });
       scope.$apply();
       popover = body.find('.popover:first');
@@ -60,11 +63,12 @@ describe('Confirm popover', function() {
     it('should use the $position service if the $uibPosition service is not available', function() {
       $injector.has = sinon.stub().withArgs('$uibPosition').returns(false);
       sinon.spy($injector, 'get');
-      $controller('PopoverConfirmCtrl as vm', {
+      $controller('PopoverConfirmCtrl', {
         $scope: scope,
-        $element: element
+        $element: element,
+        $attrs: {}
       });
-      scope.$digest();
+      scope.$apply();
       expect($injector.get).to.have.been.calledWith('$position');
     });
 
@@ -72,14 +76,14 @@ describe('Confirm popover', function() {
 
       it('should show the popover', function() {
         expect(popover.is(':visible')).to.be.false;
-        scope.vm.showPopover();
+        ctrl.showPopover();
         expect(popover.is(':visible')).to.be.true;
       });
 
       it('should not show the popover when isDisabled is true', function() {
-        scope.vm.isDisabled = true;
+        scope.isDisabled = true;
         expect(popover.is(':visible')).to.be.false;
-        scope.vm.showPopover();
+        ctrl.showPopover();
         expect(popover.is(':visible')).to.be.false;
       });
 
@@ -89,9 +93,9 @@ describe('Confirm popover', function() {
 
       it('should hide the popover', function() {
         expect(popover.is(':visible')).to.be.false;
-        scope.vm.showPopover();
+        ctrl.showPopover();
         expect(popover.is(':visible')).to.be.true;
-        scope.vm.hidePopover();
+        ctrl.hidePopover();
         expect(popover.is(':visible')).to.be.false;
       });
 
@@ -101,14 +105,14 @@ describe('Confirm popover', function() {
 
       it('should show the popover if hidden', function() {
         expect(popover.is(':visible')).to.be.false;
-        scope.vm.togglePopover();
+        ctrl.togglePopover();
         expect(popover.is(':visible')).to.be.true;
       });
 
       it('should hide the popover if visible', function() {
-        scope.vm.showPopover();
+        ctrl.showPopover();
         expect(popover.is(':visible')).to.be.true;
-        scope.vm.togglePopover();
+        ctrl.togglePopover();
         expect(popover.is(':visible')).to.be.false;
       });
 
@@ -117,7 +121,7 @@ describe('Confirm popover', function() {
     describe('positionPopover', function() {
 
       beforeEach(function() {
-        scope.vm.showPopover();
+        ctrl.showPopover();
       });
 
       it('should set the top css property', function() {
@@ -140,7 +144,7 @@ describe('Confirm popover', function() {
       });
 
       it('should hide the popover when the element is clicked and the element is visible', function() {
-        scope.vm.showPopover();
+        ctrl.showPopover();
         expect(popover.is(':visible')).to.be.true;
         $(element).click();
         expect(popover.is(':visible')).to.be.false;
@@ -199,7 +203,7 @@ describe('Confirm popover', function() {
     function createPopover(htmlString) {
       element = angular.element(htmlString);
       $compile(element)(scope);
-      scope.$digest();
+      scope.$apply();
       return $('body').find('.popover:first');
     }
 
@@ -311,7 +315,7 @@ describe('Confirm popover', function() {
       var otherButton = $('<button></button>');
       $('body').append(otherButton);
       otherButton.click();
-      scope.$digest();
+      scope.$apply();
       expect($(popover).is(':visible')).to.be.false;
     });
 
@@ -320,7 +324,7 @@ describe('Confirm popover', function() {
       $(element).click();
       expect($(popover).is(':visible')).to.be.true;
       $(popover).find('.popover-title').click();
-      scope.$digest();
+      scope.$apply();
       expect($(popover).is(':visible')).to.be.true;
     });
 
@@ -329,7 +333,7 @@ describe('Confirm popover', function() {
       $(element).click();
       expect($(popover).is(':visible')).to.be.true;
       getConfirmButton(popover).click();
-      scope.$digest();
+      scope.$apply();
       expect($(popover).is(':visible')).to.be.false;
     });
 
@@ -338,7 +342,7 @@ describe('Confirm popover', function() {
       $(element).click();
       expect($(popover).is(':visible')).to.be.true;
       getCancelButton(popover).click();
-      scope.$digest();
+      scope.$apply();
       expect($(popover).is(':visible')).to.be.false;
     });
 
@@ -374,7 +378,7 @@ describe('Confirm popover', function() {
       $('body').append(otherButton);
       otherButton.focus();
       $(element).click();
-      scope.$digest();
+      scope.$apply();
       expect(otherButton[0]).to.equal($document[0].activeElement);
     });
 
