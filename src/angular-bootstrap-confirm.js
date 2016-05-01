@@ -25,11 +25,22 @@ module.exports = angular
     var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
     var positionService = $injector.get(positionServiceName);
     var templateUrl = $attrs.templateUrl || confirmationPopoverDefaults.templateUrl;
-    var isOpen = $attrs.isOpen ? $parse($attrs.isOpen) : null;
-    var isDisabled = $attrs.isDisabled ? $parse($attrs.isDisabled) : null;
-    var focusConfirmButton = $attrs.focusConfirmButton ? $parse($attrs.focusConfirmButton) : null;
     var popoverScope = $rootScope.$new(true);
     popoverScope.vm = vm;
+
+    function assignOuterScopeValue(scopeName, value) {
+      if (angular.isDefined(scopeName)) {
+        $parse(scopeName).assign($scope, value);
+      }
+    }
+
+    function evaluateOuterScopeValue(scopeName, defaultValue) {
+      if (angular.isDefined(scopeName)) {
+        return $parse(scopeName)($scope);
+      } else {
+        return defaultValue;
+      }
+    }
 
     $templateRequest(templateUrl).then(function(template) {
       vm.popover = angular.element(template);
@@ -48,21 +59,19 @@ module.exports = angular
     }
 
     function applyFocus(target) {
-      var shouldFocus = focusConfirmButton ? focusConfirmButton($scope) : vm.defaults.focusConfirmButton;
+      var shouldFocus = evaluateOuterScopeValue($attrs.focusConfirmButton, vm.defaults.focusConfirmButton);
       if (shouldFocus) {
         target[0].focus();
       }
     }
 
     function showPopover() {
-      if (!vm.isVisible && (!isDisabled || !isDisabled($scope))) {
+      if (!vm.isVisible && !evaluateOuterScopeValue($attrs.isDisabled, false)) {
         vm.popover.css({display: 'block'});
         positionPopover();
         applyFocus(vm.popover[0].getElementsByClassName('confirm-button'));
         vm.isVisible = true;
-        if (isOpen) {
-          isOpen.assign($scope, true);
-        }
+        assignOuterScopeValue($attrs.isOpen, true);
       }
     }
 
@@ -73,9 +82,7 @@ module.exports = angular
         if (focusElement) {
           applyFocus($element);
         }
-        if (isOpen) {
-          isOpen.assign($scope, false);
-        }
+        assignOuterScopeValue($attrs.isOpen, false);
       }
     }
 
@@ -100,15 +107,11 @@ module.exports = angular
     vm.togglePopover = togglePopover;
 
     vm.onConfirm = function() {
-      if ($attrs.onConfirm) {
-        $parse($attrs.onConfirm)($scope);
-      }
+      evaluateOuterScopeValue($attrs.onConfirm);
     };
 
     vm.onCancel = function() {
-      if ($attrs.onCancel) {
-        $parse($attrs.onCancel)($scope);
-      }
+      evaluateOuterScopeValue($attrs.onCancel);
     };
 
     $scope.$watch($attrs.isOpen, function(newIsOpenValue) {
