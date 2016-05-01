@@ -58,10 +58,11 @@ module.exports = angular
       vm.popover.css(position);
     }
 
-    function applyFocus(target) {
-      var shouldFocus = evaluateOuterScopeValue($attrs.focusConfirmButton, vm.defaults.focusConfirmButton);
-      if (shouldFocus) {
-        target[0].focus();
+    function applyFocus() {
+      var buttonToFocus = $attrs.focusButton || vm.defaults.focusButton;
+      if (buttonToFocus) {
+        var targetButtonClass = buttonToFocus + '-button';
+        vm.popover[0].getElementsByClassName(targetButtonClass)[0].focus();
       }
     }
 
@@ -69,19 +70,16 @@ module.exports = angular
       if (!vm.isVisible && !evaluateOuterScopeValue($attrs.isDisabled, false)) {
         vm.popover.css({display: 'block'});
         positionPopover();
-        applyFocus(vm.popover[0].getElementsByClassName('confirm-button'));
+        applyFocus();
         vm.isVisible = true;
         assignOuterScopeValue($attrs.isOpen, true);
       }
     }
 
-    function hidePopover(focusElement) {
+    function hidePopover() {
       if (vm.isVisible) {
         vm.popover.css({display: 'none'});
         vm.isVisible = false;
-        if (focusElement) {
-          applyFocus($element);
-        }
         assignOuterScopeValue($attrs.isOpen, false);
       }
     }
@@ -157,7 +155,7 @@ module.exports = angular
     confirmButtonType: 'success',
     cancelButtonType: 'default',
     placement: 'top',
-    focusConfirmButton: true,
+    focusButton: null,
     templateUrl: DEFAULT_POPOVER_URL
   })
 

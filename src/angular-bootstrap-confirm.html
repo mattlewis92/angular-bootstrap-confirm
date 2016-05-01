@@ -16,7 +16,7 @@
         <button
           class="btn btn-block cancel-button"
           ng-class="'btn-' + (vm.$attrs.cancelButtonType || vm.defaults.cancelButtonType)"
-          ng-click="vm.onCancel(); vm.hidePopover(true)"
+          ng-click="vm.onCancel(); vm.hidePopover()"
           ng-bind-html="vm.$attrs.cancelText || vm.defaults.cancelText">
         </button>
       </div>

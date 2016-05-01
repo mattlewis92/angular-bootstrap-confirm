@@ -115,8 +115,8 @@ The bootstrap button type of the cancel button. This value is interpolated. It c
 #### is-open
 A 2-way bound variable to control if the popover is currently open or not.
 
-#### focus-confirm-button
-Whether to auto focus the confirm button. Default true.
+#### focus-button
+Set to either `confirm` or `cancel` to focus the confirm or cancel button. If omitted, by default it will not focus either button.
 
 #### is-disabled
 Whether to disable showing the popover. Default false.

@@ -34,10 +34,9 @@ describe('Confirm popover', function() {
 
   describe('PopoverConfirmCtrl', function() {
 
-    var scope, element, popover, $document, $injector, $controller, ctrl;
+    var scope, element, popover, $injector, $controller, ctrl;
 
-    beforeEach(inject(function(_$controller_, $rootScope, _$document_, _$injector_) {
-      $document = _$document_;
+    beforeEach(inject(function(_$controller_, $rootScope, _$injector_) {
       $injector = _$injector_;
       $controller = _$controller_;
       var body = $('body');
@@ -148,27 +147,6 @@ describe('Confirm popover', function() {
         expect(popover.is(':visible')).to.be.true;
         $(element).click();
         expect(popover.is(':visible')).to.be.false;
-      });
-
-    });
-
-    describe('focus confirm button', function() {
-      /*
-      * Unfortunately phantomjs won't work with target.is(':focus'). See https://github.com/ariya/phantomjs/issues/10427
-      */
-      function expectToHaveFocus(target) {
-        expect(target[0]).to.equal($document[0].activeElement);
-      }
-
-      it('should focus popover confirm button when the element is clicked', function() {
-        $(element).click();
-        expectToHaveFocus(getConfirmButton(popover));
-      });
-
-      it('should focus element when the cancel button is clicked', function() {
-        $(element).click();
-        getCancelButton(popover).click();
-        expectToHaveFocus(element);
       });
 
     });
@@ -372,14 +350,33 @@ describe('Confirm popover', function() {
 
     });
 
-    it('should allow the focus-confirm-button option to be set as an attribute', function() {
-      createPopover('<button mwl-confirm focus-confirm-button="false">Test</button>');
+    function expectToHaveFocus(target) {
+      // Unfortunately phantomjs won't work with target.is(':focus'). See https://github.com/ariya/phantomjs/issues/10427
+      expect(target[0]).to.equal($document[0].activeElement);
+    }
+
+    it('should not focus either button by default', function() {
+      createPopover('<button mwl-confirm>Test</button>');
       var otherButton = $('<button></button>');
       $('body').append(otherButton);
       otherButton.focus();
       $(element).click();
       scope.$apply();
-      expect(otherButton[0]).to.equal($document[0].activeElement);
+      expectToHaveFocus(otherButton);
+    });
+
+    it('should focus on the confirm button when the popover is opened', function() {
+      var popover = createPopover('<button mwl-confirm focus-button="confirm">Test</button>');
+      $(element).click();
+      scope.$apply();
+      expectToHaveFocus($(popover).find('button.confirm-button'));
+    });
+
+    it('should focus on the cancel button when the popover is opened', function() {
+      var popover = createPopover('<button mwl-confirm focus-button="cancel">Test</button>');
+      $(element).click();
+      scope.$apply();
+      expectToHaveFocus($(popover).find('button.cancel-button'));
     });
 
     it('should have confirm button on the left with default popover template', function() {
