@@ -60,8 +60,12 @@ module.exports = function(config) {
     webpack: webpackConfig,
 
     coverageReporter: {
-      type: 'lcov',
-      dir : 'test/coverage/'
+      reporters: [{
+        type: 'text-summary'
+      }, {
+        type: 'lcov',
+        dir : 'test/coverage/',
+      }]
     },
 
     // test results reporter to use

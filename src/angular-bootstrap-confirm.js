@@ -17,56 +17,70 @@ module.exports = angular
     $templateCache.put(DEFAULT_POPOVER_URL, defaultPopoverTemplate);
   })
 
-  .controller('PopoverConfirmCtrl', function($scope, $element, $compile, $document, $window, $timeout,
-                                             $injector, $templateRequest, confirmationPopoverDefaults) {
+  .controller('PopoverConfirmCtrl', function($scope, $rootScope, $element, $attrs, $compile, $document, $window, $timeout,
+                                             $injector, $templateRequest, $parse, confirmationPopoverDefaults) {
     var vm = this;
     vm.defaults = confirmationPopoverDefaults;
-    vm.popoverPlacement = vm.placement || vm.defaults.placement;
+    vm.$attrs = $attrs;
     var positionServiceName = $injector.has('$uibPosition') ? '$uibPosition' : '$position';
     var positionService = $injector.get(positionServiceName);
-    var templateUrl = vm.templateUrl || confirmationPopoverDefaults.templateUrl;
+    var templateUrl = $attrs.templateUrl || confirmationPopoverDefaults.templateUrl;
+    var popoverScope = $rootScope.$new(true);
+    popoverScope.vm = vm;
+
+    function assignOuterScopeValue(scopeName, value) {
+      if (angular.isDefined(scopeName)) {
+        $parse(scopeName).assign($scope, value);
+      }
+    }
+
+    function evaluateOuterScopeValue(scopeName, defaultValue) {
+      if (angular.isDefined(scopeName)) {
+        return $parse(scopeName)($scope);
+      } else {
+        return defaultValue;
+      }
+    }
 
     $templateRequest(templateUrl).then(function(template) {
       vm.popover = angular.element(template);
       vm.popover.css('display', 'none');
-      $compile(vm.popover)($scope);
+      $compile(vm.popover)(popoverScope);
       $document.find('body').append(vm.popover);
     });
 
     vm.isVisible = false;
 
     function positionPopover() {
-      var position = positionService.positionElements($element, vm.popover, vm.popoverPlacement, true);
+      var position = positionService.positionElements($element, vm.popover, $attrs.placement || vm.defaults.placement, true);
       position.top += 'px';
       position.left += 'px';
       vm.popover.css(position);
     }
 
-    function applyFocus(target) {
-      var shouldFocus = angular.isDefined(vm.focusConfirmButton) ? vm.focusConfirmButton : vm.defaults.focusConfirmButton;
-      if (shouldFocus) {
-        target[0].focus();
+    function applyFocus() {
+      var buttonToFocus = $attrs.focusButton || vm.defaults.focusButton;
+      if (buttonToFocus) {
+        var targetButtonClass = buttonToFocus + '-button';
+        vm.popover[0].getElementsByClassName(targetButtonClass)[0].focus();
       }
     }
 
     function showPopover() {
-      if (!vm.isVisible && !vm.isDisabled) {
+      if (!vm.isVisible && !evaluateOuterScopeValue($attrs.isDisabled, false)) {
         vm.popover.css({display: 'block'});
         positionPopover();
-        applyFocus(vm.popover[0].getElementsByClassName('confirm-button'));
+        applyFocus();
         vm.isVisible = true;
-        vm.isOpen = true;
+        assignOuterScopeValue($attrs.isOpen, true);
       }
     }
 
-    function hidePopover(focusElement) {
+    function hidePopover() {
       if (vm.isVisible) {
         vm.popover.css({display: 'none'});
         vm.isVisible = false;
-        if (focusElement) {
-          applyFocus($element);
-        }
-        vm.isOpen = false;
+        assignOuterScopeValue($attrs.isOpen, false);
       }
     }
 
@@ -90,9 +104,17 @@ module.exports = angular
     vm.hidePopover = hidePopover;
     vm.togglePopover = togglePopover;
 
-    $scope.$watch('vm.isOpen', function(isOpen) {
+    vm.onConfirm = function() {
+      evaluateOuterScopeValue($attrs.onConfirm);
+    };
+
+    vm.onCancel = function() {
+      evaluateOuterScopeValue($attrs.onCancel);
+    };
+
+    $scope.$watch($attrs.isOpen, function(newIsOpenValue) {
       $timeout(function() { //timeout required so that documentClick() event doesn't fire and close it
-        if (isOpen) {
+        if (newIsOpenValue) {
           showPopover();
         } else {
           hidePopover();
@@ -113,6 +135,7 @@ module.exports = angular
       $window.removeEventListener('resize', positionPopover);
       $document.unbind('click', documentClick);
       $document.unbind('touchend', documentClick);
+      popoverScope.$destroy();
     });
 
   })
@@ -120,24 +143,8 @@ module.exports = angular
   .directive('mwlConfirm', function() {
 
     return {
-      restrict: 'EA',
-      controller: 'PopoverConfirmCtrl as vm',
-      bindToController: true,
-      scope: {
-        confirmText: '@',
-        cancelText: '@',
-        message: '@',
-        title: '@',
-        placement: '@',
-        onConfirm: '&',
-        onCancel: '&',
-        confirmButtonType: '@',
-        cancelButtonType: '@',
-        isOpen: '=?',
-        focusConfirmButton: '=?',
-        templateUrl: '@',
-        isDisabled: '=?'
-      }
+      restrict: 'A',
+      controller: 'PopoverConfirmCtrl'
     };
 
   })
@@ -148,7 +155,7 @@ module.exports = angular
     confirmButtonType: 'success',
     cancelButtonType: 'default',
     placement: 'top',
-    focusConfirmButton: true,
+    focusButton: null,
     templateUrl: DEFAULT_POPOVER_URL
   })
 
