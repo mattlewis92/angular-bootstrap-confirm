@@ -1,3 +1,43 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/1.0.1...v2.0.0) (2016-05-01)
+
+
+### Features
+
+* **focusButton:** allow either the confirm or cancel button to be focused when the popover is open ([a1328a7](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/a1328a7)), closes [#20](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/20)
+* **isolateScope:** the directive no longer requires an isolate scope ([72ce933](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/72ce933))
+
+
+### BREAKING CHANGES
+
+* focusButton: `focus-confirm-button` has been removed and replaced with `focus-button`
+
+Now by default neither button will be focused, compared to previously where the confirm button would always be focused.
+
+Before:
+```
+<button mwl-confirm focus-confirm-button="true"></button>
+```
+
+After:
+```
+<button mwl-confirm focus-button="confirm"></button>
+```
+
+Can also be configured globally with setting the `focusButton` property of the `confirmationPopoverDefaults` to either `confirm` or `cancel` like so:
+
+```
+.run(function(confirmationPopoverDefaults) {
+  confirmationPopoverDefaults.focusButton = 'confirm'; // restore the old behaviour in 1.x
+});
+```
+* isolateScope: The directive will only function as an attribute directive and not an element
+directive. This was undocumented so shouldn't affect any apps
+
+The template has also changed, so if you were using a custom template then you will need to update it.
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/1.0.0...v1.0.1) (2016-04-20)
 
