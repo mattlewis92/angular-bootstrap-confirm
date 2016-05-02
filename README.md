@@ -25,9 +25,10 @@ Pull requests are welcome.
 
 ## Installation
 
-The calendar has a few dependencies, these are as follows, and must be included BEFORE the plugin files:
+This module has a few dependencies, and must be included BEFORE the plugin files:
 
 * [AngularJS](https://angularjs.org/) 1.3+
+* Angular sanitize
 * [Bootstrap](http://getbootstrap.com/) 3+ (CSS only - optional if you use a custom template)
 * [ui-bootstrap](http://angular-ui.github.io/bootstrap/) (Only the $uibPosition service is required. If you don't want to include the entire ui-bootstrap library the position service is included as a standalone file in this repo in src/ui-bootstrap-position.js)
 
@@ -40,7 +41,7 @@ bower install --save angular-bootstrap-confirm
 You will then need to include the JS files for the plugin:
 
 ```
-<script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.min.js"></script>
+<script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.js"></script>
 ```
 
 And finally add the module dependency in your AngularJS app:
