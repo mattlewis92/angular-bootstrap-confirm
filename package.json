@@ -1,6 +1,6 @@
 {
   "name": "angular-bootstrap-confirm",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Displays a bootstrap confirmation popover when clicking the given element.",
   "browser": "dist/angular-bootstrap-confirm.js",
   "scripts": {
@@ -49,10 +49,10 @@
     "jquery": "~2.2.0",
     "karma": "~0.13.9",
     "karma-chai-plugins": "~0.7.0",
-    "karma-chrome-launcher": "~0.2.0",
-    "karma-coverage": "~0.5.1",
+    "karma-chrome-launcher": "~1.0.1",
+    "karma-coverage": "~1.0.0",
     "karma-coveralls": "~1.1.0",
-    "karma-mocha": "~0.2.0",
+    "karma-mocha": "~1.0.1",
     "karma-phantomjs-launcher": "~1.0.0",
     "karma-sourcemap-loader": "~0.3.5",
     "karma-webpack": "~1.7.0",

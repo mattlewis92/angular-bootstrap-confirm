@@ -156,7 +156,9 @@ module.exports = angular
     cancelButtonType: 'default',
     placement: 'top',
     focusButton: null,
-    templateUrl: DEFAULT_POPOVER_URL
+    templateUrl: DEFAULT_POPOVER_URL,
+    hideConfirmButton: false,
+    hideCancelButton: false
   })
 
   .name;
