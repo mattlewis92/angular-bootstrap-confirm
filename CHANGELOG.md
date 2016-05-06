@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.0.0...v2.1.0) (2016-05-06)
+
+
+### Features
+
+* **buttons:** allow the confirm or cancel buttons to be hidden ([975f053](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/975f053)), closes [#22](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/22)
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/1.0.1...v2.0.0) (2016-05-01)
 
