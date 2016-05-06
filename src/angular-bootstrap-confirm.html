@@ -4,7 +4,10 @@
   <div class="popover-content">
     <p ng-bind-html="vm.$attrs.message"></p>
     <div class="row">
-      <div class="col-xs-6">
+      <div
+        class="col-xs-6"
+        ng-if="!vm.$attrs.hideConfirmButton && !vm.defaults.hideConfirmButton"
+        ng-class="{'col-xs-offset-3': vm.$attrs.hideCancelButton || vm.defaults.hideCancelButton}">
         <button
           class="btn btn-block confirm-button"
           ng-class="'btn-' + (vm.$attrs.confirmButtonType || vm.defaults.confirmButtonType)"
@@ -12,7 +15,10 @@
           ng-bind-html="vm.$attrs.confirmText || vm.defaults.confirmText">
         </button>
       </div>
-      <div class="col-xs-6">
+      <div
+        class="col-xs-6"
+        ng-if="!vm.$attrs.hideCancelButton && !vm.defaults.hideCancelButton"
+        ng-class="{'col-xs-offset-3': vm.$attrs.hideConfirmButton || vm.defaults.hideConfirmButton}">
         <button
           class="btn btn-block cancel-button"
           ng-class="'btn-' + (vm.$attrs.cancelButtonType || vm.defaults.cancelButtonType)"

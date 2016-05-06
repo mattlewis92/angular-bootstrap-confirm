@@ -120,10 +120,16 @@ A 2-way bound variable to control if the popover is currently open or not.
 Set to either `confirm` or `cancel` to focus the confirm or cancel button. If omitted, by default it will not focus either button.
 
 #### is-disabled
-Whether to disable showing the popover. Default false.
+Whether to disable showing the popover. Default `false`.
 
 #### template-url
 A custom popover template. Useful for if you're not using bootstrap. It can be configured globally by setting `confirmationPopoverDefaults.templateUrl`
+
+#### hide-confirm-button
+When set will hide the confirm button.
+
+#### hide-cancel-button
+When set will hide the cancel button.
 
 ### confirmationPopoverDefaults
 There is also a value you can use to set the defaults like so:
