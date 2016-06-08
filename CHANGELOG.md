@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.1.0...v2.2.0) (2016-06-08)
+
+
+### Features
+
+* **isOpen:** warn the user when attempting to assign the value to a boolean value ([3243b8f](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/3243b8f)), closes [#24](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/24)
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.0.0...v2.1.0) (2016-05-06)
 
