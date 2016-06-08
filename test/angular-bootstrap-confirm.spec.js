@@ -164,14 +164,15 @@ describe('Confirm popover', function() {
 
   describe('mwlConfirmDirective', function() {
 
-    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults;
+    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults, $log;
 
-    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_, _$document_, _confirmationPopoverDefaults_) {
+    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_, _$document_, _confirmationPopoverDefaults_, _$log_) {
       scope = $rootScope.$new();
       $compile = _$compile_;
       $timeout = _$timeout_;
       $document = _$document_;
       confirmationPopoverDefaults = _confirmationPopoverDefaults_;
+      $log = _$log_;
     }));
 
     afterEach(function() {
@@ -347,6 +348,15 @@ describe('Confirm popover', function() {
         createPopover('<button mwl-confirm is-open="isOpen" is-disabled="true">Test</button>');
         $(element).click();
         expect(scope.isOpen).to.be.false;
+      });
+
+      it('should not a helpful warning when not set to a variable', function() {
+        sinon.spy($log, 'warn');
+        createPopover('<button mwl-confirm is-open="false">Test</button>');
+        expect(function() {
+          $(element).click();
+        }).not.to.throw();
+        expect($log.warn).to.have.been.calledOnce;
       });
 
     });
