@@ -18,7 +18,7 @@ module.exports = angular
   })
 
   .controller('PopoverConfirmCtrl', function($scope, $rootScope, $element, $attrs, $compile, $document, $window, $timeout,
-                                             $injector, $templateRequest, $parse, confirmationPopoverDefaults) {
+                                             $injector, $templateRequest, $parse, $log, confirmationPopoverDefaults) {
     var vm = this;
     vm.defaults = confirmationPopoverDefaults;
     vm.$attrs = $attrs;
@@ -28,9 +28,14 @@ module.exports = angular
     var popoverScope = $rootScope.$new(true);
     popoverScope.vm = vm;
 
-    function assignOuterScopeValue(scopeName, value) {
+    function assignOuterScopeValue(attributeName, value) {
+      var scopeName = $attrs[attributeName];
       if (angular.isDefined(scopeName)) {
-        $parse(scopeName).assign($scope, value);
+        if ($parse(scopeName).assign) {
+          $parse(scopeName).assign($scope, value);
+        } else {
+          $log.warn('Could not set value of ' + attributeName + ' to ' + value + '. This is normally because the value is not a variable.');
+        }
       }
     }
 
@@ -72,7 +77,7 @@ module.exports = angular
         positionPopover();
         applyFocus();
         vm.isVisible = true;
-        assignOuterScopeValue($attrs.isOpen, true);
+        assignOuterScopeValue('isOpen', true);
       }
     }
 
@@ -80,7 +85,7 @@ module.exports = angular
       if (vm.isVisible) {
         vm.popover.css({display: 'none'});
         vm.isVisible = false;
-        assignOuterScopeValue($attrs.isOpen, false);
+        assignOuterScopeValue('isOpen', false);
       }
     }
 
