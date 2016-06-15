@@ -155,7 +155,7 @@ describe('Confirm popover', function() {
 
       it('should remove the popover when the scope is destroyed', function() {
         scope.$destroy();
-        expect($('body').find('.popover').size()).to.equal(0);
+        expect($('body').find('.popover').length).to.equal(0);
       });
 
     });
@@ -217,7 +217,7 @@ describe('Confirm popover', function() {
     it('should allow html in the popover message', function() {
       scope.message = '<b>Message<b>';
       var popover = createPopover('<button mwl-confirm message="{{ message }}">Test</button>');
-      expect($(popover).find('.popover-content > p > b').size()).to.equal(1);
+      expect($(popover).find('.popover-content > p > b').length).to.equal(1);
     });
 
     it('should set the popover title', function() {
@@ -228,7 +228,7 @@ describe('Confirm popover', function() {
     it('should allow html in the popover title', function() {
       scope.title = '<b>Title<b>';
       var popover = createPopover('<button mwl-confirm title="{{ title }}">Test</button>');
-      expect($(popover).find('.popover-title > b').size()).to.equal(1);
+      expect($(popover).find('.popover-title > b').length).to.equal(1);
     });
 
     it('should set the default placement to top', function() {
@@ -263,7 +263,7 @@ describe('Confirm popover', function() {
     it('should allow html in the confirm button text', function() {
       scope.confirmButtonText = '<b>Confirm</b>';
       var popover = createPopover('<button mwl-confirm confirm-text="{{ confirmButtonText }}">Test</button>');
-      expect(getConfirmButton(popover).find('b').size()).to.equal(1);
+      expect(getConfirmButton(popover).find('b').length).to.equal(1);
     });
 
     it('should set confirm button class when specified', function() {
@@ -284,7 +284,7 @@ describe('Confirm popover', function() {
     it('should allow html in the cancel button text', function() {
       scope.cancelButtonText = '<b>Cancel</b>';
       var popover = createPopover('<button mwl-confirm cancel-text="{{ cancelButtonText }}">Test</button>');
-      expect(getCancelButton(popover).find('b').size()).to.equal(1);
+      expect(getCancelButton(popover).find('b').length).to.equal(1);
     });
 
     it('should close the popover when another element that isn\'t the popover is clicked', function() {
@@ -324,6 +324,11 @@ describe('Confirm popover', function() {
       getCancelButton(popover).click();
       scope.$apply();
       expect($(popover).is(':visible')).to.be.false;
+    });
+
+    it('should allow a custom class to be set on the popover', function() {
+      var popover = createPopover('<button mwl-confirm popover-class="foo">Test</button>');
+      expect(popover.hasClass('foo')).to.be.true;
     });
 
     describe('is-open', function() {
@@ -419,32 +424,32 @@ describe('Confirm popover', function() {
 
     it('should hide the confirm button', function() {
       var popover = createPopover('<button mwl-confirm hide-confirm-button="true">Test</button>');
-      expect($(popover).find('button').size()).to.equal(1);
-      expect($(popover).find('.confirm-button').size()).to.equal(0);
+      expect($(popover).find('button').length).to.equal(1);
+      expect($(popover).find('.confirm-button').length).to.equal(0);
       expect($(popover).find('.cancel-button').parent().hasClass('col-xs-offset-3')).to.be.true;
     });
 
     it('should hide the confirm button when configured globally', function() {
       confirmationPopoverDefaults.hideConfirmButton = true;
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect($(popover).find('button').size()).to.equal(1);
-      expect($(popover).find('.confirm-button').size()).to.equal(0);
+      expect($(popover).find('button').length).to.equal(1);
+      expect($(popover).find('.confirm-button').length).to.equal(0);
       expect($(popover).find('.cancel-button').parent().hasClass('col-xs-offset-3')).to.be.true;
       confirmationPopoverDefaults.hideConfirmButton = false;
     });
 
     it('should hide the cancel button', function() {
       var popover = createPopover('<button mwl-confirm hide-cancel-button="true">Test</button>');
-      expect($(popover).find('button').size()).to.equal(1);
-      expect($(popover).find('.cancel-button').size()).to.equal(0);
+      expect($(popover).find('button').length).to.equal(1);
+      expect($(popover).find('.cancel-button').length).to.equal(0);
       expect($(popover).find('.confirm-button').parent().hasClass('col-xs-offset-3')).to.be.true;
     });
 
     it('should hide the cancel button when configured globally', function() {
       confirmationPopoverDefaults.hideCancelButton = true;
       var popover = createPopover('<button mwl-confirm>Test</button>');
-      expect($(popover).find('button').size()).to.equal(1);
-      expect($(popover).find('.cancel-button').size()).to.equal(0);
+      expect($(popover).find('button').length).to.equal(1);
+      expect($(popover).find('.cancel-button').length).to.equal(0);
       expect($(popover).find('.confirm-button').parent().hasClass('col-xs-offset-3')).to.be.true;
       confirmationPopoverDefaults.hideCancelButton = false;
     });
