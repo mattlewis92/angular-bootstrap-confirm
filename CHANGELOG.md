@@ -1,3 +1,14 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.2.0...v2.3.0) (2016-06-15)
+
+
+### Features
+
+* **bootstrap4:** add bootstrap 4 popover classes ([4557217](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/4557217))
+* **popoverClass:** allow a custom CSS class to be set on the popover ([6863067](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/6863067)), closes [#25](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/25)
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.1.0...v2.2.0) (2016-06-08)
 
