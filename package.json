@@ -46,7 +46,7 @@
     "eslint-plugin-angular": "~1.1.1",
     "ghooks": "~1.2.1",
     "istanbul-instrumenter-loader": "~0.2.0",
-    "jquery": "~2.2.0",
+    "jquery": "~3.0.0",
     "karma": "~0.13.9",
     "karma-chai-plugins": "~0.7.0",
     "karma-chrome-launcher": "~1.0.1",
