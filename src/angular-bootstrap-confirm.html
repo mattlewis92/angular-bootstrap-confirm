@@ -1,7 +1,7 @@
 <div
   class="popover"
-  ng-class="[vm.$attrs.placement || vm.defaults.placement, vm.$attrs.popoverClass || vm.defaults.popoverClass]">
-  <div class="arrow"></div>
+  ng-class="[vm.$attrs.placement || vm.defaults.placement, 'popover-' + (vm.$attrs.placement || vm.defaults.placement), vm.$attrs.popoverClass || vm.defaults.popoverClass]">
+  <div class="popover-arrow arrow"></div>
   <h3 class="popover-title" ng-bind-html="vm.$attrs.title"></h3>
   <div class="popover-content">
     <p ng-bind-html="vm.$attrs.message"></p>
