@@ -326,6 +326,11 @@ describe('Confirm popover', function() {
       expect($(popover).is(':visible')).to.be.false;
     });
 
+    it('should allow a custom class to be set on the popover', function() {
+      var popover = createPopover('<button mwl-confirm popover-class="foo">Test</button>');
+      expect(popover.hasClass('foo')).to.be.true;
+    });
+
     describe('is-open', function() {
 
       it('should be true when the popover becomes visible', function() {

@@ -1,4 +1,6 @@
-<div class="popover" ng-class="vm.$attrs.placement || vm.defaults.placement">
+<div
+  class="popover"
+  ng-class="[vm.$attrs.placement || vm.defaults.placement, vm.$attrs.popoverClass || vm.defaults.popoverClass]">
   <div class="arrow"></div>
   <h3 class="popover-title" ng-bind-html="vm.$attrs.title"></h3>
   <div class="popover-content">
