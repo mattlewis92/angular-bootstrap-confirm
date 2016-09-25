@@ -164,15 +164,16 @@ describe('Confirm popover', function() {
 
   describe('mwlConfirmDirective', function() {
 
-    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults, $log;
+    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults, $log, $templateCache;
 
-    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_, _$document_, _confirmationPopoverDefaults_, _$log_) {
+    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_, _$document_, _confirmationPopoverDefaults_, _$log_, _$templateCache_) {
       scope = $rootScope.$new();
       $compile = _$compile_;
       $timeout = _$timeout_;
       $document = _$document_;
       confirmationPopoverDefaults = _confirmationPopoverDefaults_;
       $log = _$log_;
+      $templateCache = _$templateCache_;
     }));
 
     afterEach(function() {
@@ -403,7 +404,7 @@ describe('Confirm popover', function() {
       expect(cancelButton).to.equal('Cancel');
     });
 
-    it('should allow the popover default template url to be changed', inject(function($templateCache) {
+    it('should allow the popover default template url to be changed', function() {
       var customTemplateUrl = 'my-custom-popover.html';
       var customTemplate = '<div class="popover">Custom</div>';
       $templateCache.put(customTemplateUrl, customTemplate);
@@ -412,15 +413,15 @@ describe('Confirm popover', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
       expect(popover.html()).to.equal('Custom');
       confirmationPopoverDefaults.templateUrl = originalUrl;
-    }));
+    });
 
-    it('should allow a per instance template url to be set', inject(function($templateCache) {
+    it('should allow a per instance template url to be set', function() {
       var customTemplateUrl = 'my-custom-popover.html';
       var customTemplate = '<div class="popover">Instance template</div>';
       $templateCache.put(customTemplateUrl, customTemplate);
       var popover = createPopover('<button mwl-confirm template-url="' + customTemplateUrl + '">Test</button>');
       expect(popover.html()).to.equal('Instance template');
-    }));
+    });
 
     it('should hide the confirm button', function() {
       var popover = createPopover('<button mwl-confirm hide-confirm-button="true">Test</button>');
@@ -452,6 +453,27 @@ describe('Confirm popover', function() {
       expect($(popover).find('.cancel-button').length).to.equal(0);
       expect($(popover).find('.confirm-button').parent().hasClass('col-xs-offset-3')).to.be.true;
       confirmationPopoverDefaults.hideCancelButton = false;
+    });
+
+    it('should allow a custom values to be passed to the confirm handler if using a custom template', function() {
+      $templateCache.put('customTemplate.html',
+        '<div class="popover" ng-class="vm.$attrs.placement || vm.defaults.placement">' +
+          '<input type="text" ng-model="vm.defaults.hack.confirmText" class="confirm-text">' +
+          '<button class="confirm-button" ng-click="vm.onConfirm({confirmText: vm.defaults.hack.confirmText}); vm.hidePopover()">Confirm</button>' +
+        '</div>'
+      );
+      scope.onConfirm = sinon.spy();
+      var popover = createPopover(
+        '<button mwl-confirm template-url="customTemplate.html" on-confirm="onConfirm(confirmText)">Test</button>'
+      );
+      $(element).click();
+      scope.$apply();
+      // hack to set input value, as there doesn't seem to be an easy way to fill the text value otherwise
+      confirmationPopoverDefaults.hack = {confirmText: 'foo'};
+      scope.$apply();
+      $(popover).find('.confirm-button').click();
+      scope.$apply();
+      expect(scope.onConfirm).to.have.been.calledWith('foo');
     });
 
   });

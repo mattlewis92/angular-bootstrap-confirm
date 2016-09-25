@@ -39,9 +39,9 @@ module.exports = angular
       }
     }
 
-    function evaluateOuterScopeValue(scopeName, defaultValue) {
+    function evaluateOuterScopeValue(scopeName, defaultValue, locals) {
       if (angular.isDefined(scopeName)) {
-        return $parse(scopeName)($scope);
+        return $parse(scopeName)($scope, locals);
       } else {
         return defaultValue;
       }
@@ -109,12 +109,12 @@ module.exports = angular
     vm.hidePopover = hidePopover;
     vm.togglePopover = togglePopover;
 
-    vm.onConfirm = function() {
-      evaluateOuterScopeValue($attrs.onConfirm);
+    vm.onConfirm = function(callbackLocals) {
+      evaluateOuterScopeValue($attrs.onConfirm, null, callbackLocals);
     };
 
-    vm.onCancel = function() {
-      evaluateOuterScopeValue($attrs.onCancel);
+    vm.onCancel = function(callbackLocals) {
+      evaluateOuterScopeValue($attrs.onCancel, null, callbackLocals);
     };
 
     $scope.$watch($attrs.isOpen, function(newIsOpenValue) {
