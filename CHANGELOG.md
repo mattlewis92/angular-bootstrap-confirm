@@ -1,3 +1,13 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.3.0...v2.4.0) (2016-09-25)
+
+
+### Features
+
+* **customTemplate:** allow passing local values to the confirm and cancel outputs ([b3e650c](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/b3e650c))
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.2.0...v2.3.0) (2016-06-15)
 
