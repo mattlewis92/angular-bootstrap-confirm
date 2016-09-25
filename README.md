@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/mattlewis92/angular-bootstrap-confirm/badge.svg)](https://coveralls.io/r/mattlewis92/angular-bootstrap-confirm)
 [![npm version](https://badge.fury.io/js/angular-bootstrap-confirm.svg)](https://badge.fury.io/js/angular-bootstrap-confirm)
 [![Bower version](https://badge.fury.io/bo/angular-bootstrap-confirm.svg)](http://badge.fury.io/bo/angular-bootstrap-confirm)
-[![devDependency Status](https://david-dm.org/mattlewis92/angular-bootstrap-confirm/dev-status.svg)](https://david-dm.org/mattlewis92/angular-bootstrap-confirm#info=devDependencies)
+[![devDependency Status](https://david-dm.org/mattlewis92/angular-bootstrap-confirm/dev-status.svg)](https://david-dm.org/mattlewis92/angular-bootstrap-confirm?type=dev)
 [![Codacy Badge](https://www.codacy.com/project/badge/f00fe7fdcfa04a38a31750bec12e142d)](https://www.codacy.com/app/matt-lewis-private/angular-bootstrap-confirm)
 [![GitHub issues](https://img.shields.io/github/issues/mattlewis92/angular-bootstrap-confirm.svg)](https://github.com/mattlewis92/angular-bootstrap-confirm/issues)
 [![GitHub stars](https://img.shields.io/github/stars/mattlewis92/angular-bootstrap-confirm.svg)](https://github.com/mattlewis92/angular-bootstrap-confirm/stargazers)

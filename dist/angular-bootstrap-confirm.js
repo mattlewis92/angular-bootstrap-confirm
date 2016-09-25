@@ -1,6 +1,6 @@
 /**
    * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
-   * @version v2.3.0
+   * @version v2.4.0
    * @link https://github.com/mattlewis92/angular-bootstrap-confirm
    * @license MIT
    */
@@ -101,9 +101,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 
-	    function evaluateOuterScopeValue(scopeName, defaultValue) {
+	    function evaluateOuterScopeValue(scopeName, defaultValue, locals) {
 	      if (angular.isDefined(scopeName)) {
-	        return $parse(scopeName)($scope);
+	        return $parse(scopeName)($scope, locals);
 	      } else {
 	        return defaultValue;
 	      }
@@ -171,12 +171,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    vm.hidePopover = hidePopover;
 	    vm.togglePopover = togglePopover;
 
-	    vm.onConfirm = function() {
-	      evaluateOuterScopeValue($attrs.onConfirm);
+	    vm.onConfirm = function(callbackLocals) {
+	      evaluateOuterScopeValue($attrs.onConfirm, null, callbackLocals);
 	    };
 
-	    vm.onCancel = function() {
-	      evaluateOuterScopeValue($attrs.onCancel);
+	    vm.onCancel = function(callbackLocals) {
+	      evaluateOuterScopeValue($attrs.onCancel, null, callbackLocals);
 	    };
 
 	    $scope.$watch($attrs.isOpen, function(newIsOpenValue) {
