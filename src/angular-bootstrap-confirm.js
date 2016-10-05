@@ -47,45 +47,54 @@ module.exports = angular
       }
     }
 
-    $templateRequest(templateUrl).then(function(template) {
-      vm.popover = angular.element(template);
-      vm.popover.css('display', 'none');
-      $compile(vm.popover)(popoverScope);
-      $document.find('body').append(vm.popover);
+    var popoverLoaded = $templateRequest(templateUrl).then(function(template) {
+      var popover = angular.element(template);
+      popover.css('display', 'none');
+      $compile(popover)(popoverScope);
+      $document.find('body').append(popover);
+      return popover;
     });
 
     vm.isVisible = false;
 
     function positionPopover() {
-      var position = positionService.positionElements($element, vm.popover, $attrs.placement || vm.defaults.placement, true);
-      position.top += 'px';
-      position.left += 'px';
-      vm.popover.css(position);
+      popoverLoaded.then(function(popover) {
+        var position = positionService.positionElements($element, popover, $attrs.placement || vm.defaults.placement, true);
+        position.top += 'px';
+        position.left += 'px';
+        popover.css(position);
+      });
     }
 
     function applyFocus() {
       var buttonToFocus = $attrs.focusButton || vm.defaults.focusButton;
       if (buttonToFocus) {
-        var targetButtonClass = buttonToFocus + '-button';
-        vm.popover[0].getElementsByClassName(targetButtonClass)[0].focus();
+        popoverLoaded.then(function(popover) {
+          var targetButtonClass = buttonToFocus + '-button';
+          popover[0].getElementsByClassName(targetButtonClass)[0].focus();
+        });
       }
     }
 
     function showPopover() {
       if (!vm.isVisible && !evaluateOuterScopeValue($attrs.isDisabled, false)) {
-        vm.popover.css({display: 'block'});
-        positionPopover();
-        applyFocus();
-        vm.isVisible = true;
-        assignOuterScopeValue('isOpen', true);
+        popoverLoaded.then(function(popover) {
+          popover.css({display: 'block'});
+          positionPopover();
+          applyFocus();
+          vm.isVisible = true;
+          assignOuterScopeValue('isOpen', true);
+        });
       }
     }
 
     function hidePopover() {
       if (vm.isVisible) {
-        vm.popover.css({display: 'none'});
-        vm.isVisible = false;
-        assignOuterScopeValue('isOpen', false);
+        popoverLoaded.then(function(popover) {
+          popover.css({display: 'none'});
+          vm.isVisible = false;
+          assignOuterScopeValue('isOpen', false);
+        });
       }
     }
 
@@ -95,14 +104,14 @@ module.exports = angular
       } else {
         hidePopover();
       }
-      $scope.$apply();
     }
 
     function documentClick(event) {
-      if (vm.isVisible && !vm.popover[0].contains(event.target) && !$element[0].contains(event.target)) {
-        hidePopover();
-        $scope.$apply();
-      }
+      popoverLoaded.then(function(popover) {
+        if (vm.isVisible && !popover[0].contains(event.target) && !$element[0].contains(event.target)) {
+          hidePopover();
+        }
+      });
     }
 
     vm.showPopover = showPopover;
@@ -135,12 +144,14 @@ module.exports = angular
     $document.bind('touchend', documentClick);
 
     $scope.$on('$destroy', function() {
-      vm.popover.remove();
-      $element.unbind('click', togglePopover);
-      $window.removeEventListener('resize', positionPopover);
-      $document.unbind('click', documentClick);
-      $document.unbind('touchend', documentClick);
-      popoverScope.$destroy();
+      popoverLoaded.then(function(popover) {
+        popover.remove();
+        $element.unbind('click', togglePopover);
+        $window.removeEventListener('resize', positionPopover);
+        $document.unbind('click', documentClick);
+        $document.unbind('touchend', documentClick);
+        popoverScope.$destroy();
+      });
     });
 
   })
