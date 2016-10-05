@@ -1,3 +1,14 @@
+<a name="2.4.1"></a>
+## [2.4.1](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.4.0...v2.4.1) (2016-10-05)
+
+
+### Bug Fixes
+
+* ensure the popover is always destroyed after its loaded ([1f4e81d](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/1f4e81d)), closes [#31](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/31)
+* remove dependency on bootstrap ([76cff9c](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/76cff9c)), closes [#30](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/30)
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.3.0...v2.4.0) (2016-09-25)
 
