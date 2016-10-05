@@ -34,11 +34,12 @@ describe('Confirm popover', function() {
 
   describe('PopoverConfirmCtrl', function() {
 
-    var scope, element, popover, $injector, $controller, ctrl;
+    var scope, element, popover, $injector, $controller, ctrl, $rootScope;
 
-    beforeEach(inject(function(_$controller_, $rootScope, _$injector_) {
+    beforeEach(inject(function(_$controller_, _$injector_, _$rootScope_) {
       $injector = _$injector_;
       $controller = _$controller_;
+      $rootScope = _$rootScope_;
       var body = $('body');
       scope = $rootScope.$new();
       element = angular.element('<button>Test</button>');
@@ -50,13 +51,14 @@ describe('Confirm popover', function() {
           isDisabled: 'isDisabled'
         }
       });
-      scope.$apply();
+      $rootScope.$apply();
       popover = body.find('.popover:first');
 
     }));
 
     afterEach(function() {
       scope.$destroy();
+      $rootScope.$apply();
     });
 
     it('should use the $position service if the $uibPosition service is not available', function() {
@@ -74,8 +76,10 @@ describe('Confirm popover', function() {
     describe('showPopover', function() {
 
       it('should show the popover', function() {
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.false;
         ctrl.showPopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.true;
       });
 
@@ -83,6 +87,7 @@ describe('Confirm popover', function() {
         scope.isDisabled = true;
         expect(popover.is(':visible')).to.be.false;
         ctrl.showPopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.false;
       });
 
@@ -93,8 +98,10 @@ describe('Confirm popover', function() {
       it('should hide the popover', function() {
         expect(popover.is(':visible')).to.be.false;
         ctrl.showPopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.true;
         ctrl.hidePopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.false;
       });
 
@@ -105,13 +112,16 @@ describe('Confirm popover', function() {
       it('should show the popover if hidden', function() {
         expect(popover.is(':visible')).to.be.false;
         ctrl.togglePopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.true;
       });
 
       it('should hide the popover if visible', function() {
         ctrl.showPopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.true;
         ctrl.togglePopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.false;
       });
 
@@ -121,6 +131,7 @@ describe('Confirm popover', function() {
 
       beforeEach(function() {
         ctrl.showPopover();
+        $rootScope.$apply();
       });
 
       it('should set the top css property', function() {
@@ -139,13 +150,16 @@ describe('Confirm popover', function() {
       it('should show the popover when the element is clicked and the element is hidden', function() {
         expect(popover.is(':visible')).to.be.false;
         $(element).click();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.true;
       });
 
       it('should hide the popover when the element is clicked and the element is visible', function() {
         ctrl.showPopover();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.true;
         $(element).click();
+        $rootScope.$apply();
         expect(popover.is(':visible')).to.be.false;
       });
 
@@ -155,6 +169,7 @@ describe('Confirm popover', function() {
 
       it('should remove the popover when the scope is destroyed', function() {
         scope.$destroy();
+        $rootScope.$apply();
         expect($('body').find('.popover').length).to.equal(0);
       });
 
@@ -164,20 +179,23 @@ describe('Confirm popover', function() {
 
   describe('mwlConfirmDirective', function() {
 
-    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults, $log, $templateCache;
+    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults, $log, $templateCache, $rootScope;
 
-    beforeEach(inject(function(_$compile_, $rootScope, _$timeout_, _$document_, _confirmationPopoverDefaults_, _$log_, _$templateCache_) {
-      scope = $rootScope.$new();
+    beforeEach(inject(function(_$compile_, _$timeout_, _$document_, _$rootScope_,
+                               _confirmationPopoverDefaults_, _$log_, _$templateCache_) {
       $compile = _$compile_;
       $timeout = _$timeout_;
       $document = _$document_;
+      $rootScope = _$rootScope_;
       confirmationPopoverDefaults = _confirmationPopoverDefaults_;
       $log = _$log_;
       $templateCache = _$templateCache_;
+      scope = $rootScope.$new();
     }));
 
     afterEach(function() {
       scope.$destroy();
+      $rootScope.$apply();
       $('body').find('.popover').remove();
     });
 
@@ -292,10 +310,12 @@ describe('Confirm popover', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
       expect($(popover).is(':visible')).to.be.false;
       $(element).click();
+      $rootScope.$apply();
       expect($(popover).is(':visible')).to.be.true;
       var otherButton = $('<button></button>');
       $('body').append(otherButton);
       otherButton.click();
+      $rootScope.$apply();
       scope.$apply();
       expect($(popover).is(':visible')).to.be.false;
     });
@@ -303,8 +323,10 @@ describe('Confirm popover', function() {
     it('should keep the popover open when an element inside the popover is clicked', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
       $(element).click();
+      $rootScope.$apply();
       expect($(popover).is(':visible')).to.be.true;
       $(popover).find('.popover-title').click();
+      $rootScope.$apply();
       scope.$apply();
       expect($(popover).is(':visible')).to.be.true;
     });
@@ -312,8 +334,10 @@ describe('Confirm popover', function() {
     it('should close the popover when the confirm button is clicked', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
       $(element).click();
+      $rootScope.$apply();
       expect($(popover).is(':visible')).to.be.true;
       getConfirmButton(popover).click();
+      $rootScope.$apply();
       scope.$apply();
       expect($(popover).is(':visible')).to.be.false;
     });
@@ -321,8 +345,10 @@ describe('Confirm popover', function() {
     it('should close the popover when the cancel button is clicked', function() {
       var popover = createPopover('<button mwl-confirm>Test</button>');
       $(element).click();
+      $rootScope.$apply();
       expect($(popover).is(':visible')).to.be.true;
       getCancelButton(popover).click();
+      $rootScope.$apply();
       scope.$apply();
       expect($(popover).is(':visible')).to.be.false;
     });
@@ -338,6 +364,7 @@ describe('Confirm popover', function() {
         createPopover('<button mwl-confirm is-open="isOpen">Test</button>');
         expect(scope.isOpen).to.be.undefined;
         $(element).click();
+        $rootScope.$apply();
         expect(scope.isOpen).to.be.true;
       });
 
@@ -353,6 +380,7 @@ describe('Confirm popover', function() {
         scope.isOpen = false;
         createPopover('<button mwl-confirm is-open="isOpen" is-disabled="true">Test</button>');
         $(element).click();
+        $rootScope.$apply();
         expect(scope.isOpen).to.be.false;
       });
 
@@ -361,6 +389,7 @@ describe('Confirm popover', function() {
         createPopover('<button mwl-confirm is-open="false">Test</button>');
         expect(function() {
           $(element).click();
+          $rootScope.$apply();
         }).not.to.throw();
         expect($log.warn).to.have.been.calledOnce;
       });
