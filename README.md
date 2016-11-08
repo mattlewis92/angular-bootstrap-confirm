@@ -24,7 +24,7 @@ A simple angular directive to display a bootstrap styled confirmation popover wh
 
 Pull requests are welcome.
 
-[Angular2 version](https://github.com/mattlewis92/angular2-bootstrap-confirm)
+[Angular2 version](https://github.com/mattlewis92/angular-confirmation-popover)
 
 ## Installation
 
