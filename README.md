@@ -137,6 +137,9 @@ When set will hide the cancel button.
 #### popover-class
 A CSS class that will be set on the popover that is opened.
 
+#### animation
+Whether to animate the popover as it fades in and out. Default `false`.
+
 ### confirmationPopoverDefaults
 There is also a value you can use to set the defaults like so:
 ```javascript
