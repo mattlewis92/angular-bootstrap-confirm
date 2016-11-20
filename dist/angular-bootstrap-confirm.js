@@ -1,6 +1,6 @@
 /**
    * angular-bootstrap-confirm - Displays a bootstrap confirmation popover when clicking the given element.
-   * @version v2.4.1
+   * @version v2.5.0
    * @link https://github.com/mattlewis92/angular-bootstrap-confirm
    * @license MIT
    */
@@ -79,8 +79,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    $templateCache.put(DEFAULT_POPOVER_URL, defaultPopoverTemplate);
 	  }])
 
-	  .controller('PopoverConfirmCtrl', ["$scope", "$rootScope", "$element", "$attrs", "$compile", "$document", "$window", "$timeout", "$injector", "$templateRequest", "$parse", "$log", "confirmationPopoverDefaults", function($scope, $rootScope, $element, $attrs, $compile, $document, $window, $timeout,
-	                                             $injector, $templateRequest, $parse, $log, confirmationPopoverDefaults) {
+	  .controller('PopoverConfirmCtrl', ["$scope", "$rootScope", "$element", "$attrs", "$compile", "$document", "$window", "$timeout", "$injector", "$templateRequest", "$parse", "$log", "$animate", "confirmationPopoverDefaults", function($scope, $rootScope, $element, $attrs, $compile, $document, $window, $timeout,
+	                                             $injector, $templateRequest, $parse, $log, $animate, confirmationPopoverDefaults) {
 	    var vm = this;
 	    vm.defaults = confirmationPopoverDefaults;
 	    vm.$attrs = $attrs;
@@ -88,6 +88,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var positionService = $injector.get(positionServiceName);
 	    var templateUrl = $attrs.templateUrl || confirmationPopoverDefaults.templateUrl;
 	    var popoverScope = $rootScope.$new(true);
+	    var animation = vm.animation = $attrs.animation === 'true' || confirmationPopoverDefaults.animation;
 	    popoverScope.vm = vm;
 
 	    function assignOuterScopeValue(attributeName, value) {
@@ -142,6 +143,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!vm.isVisible && !evaluateOuterScopeValue($attrs.isDisabled, false)) {
 	        popoverLoaded.then(function(popover) {
 	          popover.css({display: 'block'});
+	          if (animation) {
+	            $animate.addClass(popover, 'in');
+	          }
 	          positionPopover();
 	          applyFocus();
 	          vm.isVisible = true;
@@ -153,6 +157,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function hidePopover() {
 	      if (vm.isVisible) {
 	        popoverLoaded.then(function(popover) {
+	          if (animation) {
+	            $animate.removeClass(popover, 'in');
+	          }
 	          popover.css({display: 'none'});
 	          vm.isVisible = false;
 	          assignOuterScopeValue('isOpen', false);
@@ -236,7 +243,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    focusButton: null,
 	    templateUrl: DEFAULT_POPOVER_URL,
 	    hideConfirmButton: false,
-	    hideCancelButton: false
+	    hideCancelButton: false,
+	    animation: false
 	  })
 
 	  .name;
@@ -252,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = "<div\n  class=\"popover\"\n  ng-class=\"[vm.$attrs.placement || vm.defaults.placement, 'popover-' + (vm.$attrs.placement || vm.defaults.placement), vm.$attrs.popoverClass || vm.defaults.popoverClass]\">\n  <div class=\"popover-arrow arrow\"></div>\n  <h3 class=\"popover-title\" ng-bind-html=\"vm.$attrs.title\"></h3>\n  <div class=\"popover-content\">\n    <p ng-bind-html=\"vm.$attrs.message\"></p>\n    <div class=\"row\">\n      <div\n        class=\"col-xs-6\"\n        ng-if=\"!vm.$attrs.hideConfirmButton && !vm.defaults.hideConfirmButton\"\n        ng-class=\"{'col-xs-offset-3': vm.$attrs.hideCancelButton || vm.defaults.hideCancelButton}\">\n        <button\n          class=\"btn btn-block confirm-button\"\n          ng-class=\"'btn-' + (vm.$attrs.confirmButtonType || vm.defaults.confirmButtonType)\"\n          ng-click=\"vm.onConfirm(); vm.hidePopover()\"\n          ng-bind-html=\"vm.$attrs.confirmText || vm.defaults.confirmText\">\n        </button>\n      </div>\n      <div\n        class=\"col-xs-6\"\n        ng-if=\"!vm.$attrs.hideCancelButton && !vm.defaults.hideCancelButton\"\n        ng-class=\"{'col-xs-offset-3': vm.$attrs.hideConfirmButton || vm.defaults.hideConfirmButton}\">\n        <button\n          class=\"btn btn-block cancel-button\"\n          ng-class=\"'btn-' + (vm.$attrs.cancelButtonType || vm.defaults.cancelButtonType)\"\n          ng-click=\"vm.onCancel(); vm.hidePopover()\"\n          ng-bind-html=\"vm.$attrs.cancelText || vm.defaults.cancelText\">\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n"
+	module.exports = "<div\n  class=\"popover\"\n  ng-class=\"[vm.$attrs.placement || vm.defaults.placement, 'popover-' + (vm.$attrs.placement || vm.defaults.placement), vm.$attrs.popoverClass || vm.defaults.popoverClass, {fade: vm.animation}]\">\n  <div class=\"popover-arrow arrow\"></div>\n  <h3 class=\"popover-title\" ng-bind-html=\"vm.$attrs.title\"></h3>\n  <div class=\"popover-content\">\n    <p ng-bind-html=\"vm.$attrs.message\"></p>\n    <div class=\"row\">\n      <div\n        class=\"col-xs-6\"\n        ng-if=\"!vm.$attrs.hideConfirmButton && !vm.defaults.hideConfirmButton\"\n        ng-class=\"{'col-xs-offset-3': vm.$attrs.hideCancelButton || vm.defaults.hideCancelButton}\">\n        <button\n          class=\"btn btn-block confirm-button\"\n          ng-class=\"'btn-' + (vm.$attrs.confirmButtonType || vm.defaults.confirmButtonType)\"\n          ng-click=\"vm.onConfirm(); vm.hidePopover()\"\n          ng-bind-html=\"vm.$attrs.confirmText || vm.defaults.confirmText\">\n        </button>\n      </div>\n      <div\n        class=\"col-xs-6\"\n        ng-if=\"!vm.$attrs.hideCancelButton && !vm.defaults.hideCancelButton\"\n        ng-class=\"{'col-xs-offset-3': vm.$attrs.hideConfirmButton || vm.defaults.hideConfirmButton}\">\n        <button\n          class=\"btn btn-block cancel-button\"\n          ng-class=\"'btn-' + (vm.$attrs.cancelButtonType || vm.defaults.cancelButtonType)\"\n          ng-click=\"vm.onCancel(); vm.hidePopover()\"\n          ng-bind-html=\"vm.$attrs.cancelText || vm.defaults.cancelText\">\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 /* 3 */

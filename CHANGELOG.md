@@ -1,3 +1,13 @@
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.4.1...v2.5.0) (2016-11-20)
+
+
+### Features
+
+* **animation:** add animation support ([5229a30](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/5229a30)), closes [#32](https://github.com/mattlewis92/angular-bootstrap-confirm/issues/32)
+
+
+
 <a name="2.4.1"></a>
 ## [2.4.1](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.4.0...v2.4.1) (2016-10-05)
 
