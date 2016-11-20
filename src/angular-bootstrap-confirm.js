@@ -18,7 +18,7 @@ module.exports = angular
   })
 
   .controller('PopoverConfirmCtrl', function($scope, $rootScope, $element, $attrs, $compile, $document, $window, $timeout,
-                                             $injector, $templateRequest, $parse, $log, confirmationPopoverDefaults) {
+                                             $injector, $templateRequest, $parse, $log, $animate, confirmationPopoverDefaults) {
     var vm = this;
     vm.defaults = confirmationPopoverDefaults;
     vm.$attrs = $attrs;
@@ -26,6 +26,7 @@ module.exports = angular
     var positionService = $injector.get(positionServiceName);
     var templateUrl = $attrs.templateUrl || confirmationPopoverDefaults.templateUrl;
     var popoverScope = $rootScope.$new(true);
+    var animation = vm.animation = $attrs.animation === 'true' || confirmationPopoverDefaults.animation;
     popoverScope.vm = vm;
 
     function assignOuterScopeValue(attributeName, value) {
@@ -80,6 +81,9 @@ module.exports = angular
       if (!vm.isVisible && !evaluateOuterScopeValue($attrs.isDisabled, false)) {
         popoverLoaded.then(function(popover) {
           popover.css({display: 'block'});
+          if (animation) {
+            $animate.addClass(popover, 'in');
+          }
           positionPopover();
           applyFocus();
           vm.isVisible = true;
@@ -91,6 +95,9 @@ module.exports = angular
     function hidePopover() {
       if (vm.isVisible) {
         popoverLoaded.then(function(popover) {
+          if (animation) {
+            $animate.removeClass(popover, 'in');
+          }
           popover.css({display: 'none'});
           vm.isVisible = false;
           assignOuterScopeValue('isOpen', false);
@@ -174,7 +181,8 @@ module.exports = angular
     focusButton: null,
     templateUrl: DEFAULT_POPOVER_URL,
     hideConfirmButton: false,
-    hideCancelButton: false
+    hideCancelButton: false,
+    animation: false
   })
 
   .name;

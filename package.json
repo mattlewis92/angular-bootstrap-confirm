@@ -1,6 +1,6 @@
 {
   "name": "angular-bootstrap-confirm",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Displays a bootstrap confirmation popover when clicking the given element.",
   "browser": "dist/angular-bootstrap-confirm.js",
   "scripts": {

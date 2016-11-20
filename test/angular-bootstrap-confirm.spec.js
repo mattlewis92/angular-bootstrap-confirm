@@ -179,9 +179,9 @@ describe('Confirm popover', function() {
 
   describe('mwlConfirmDirective', function() {
 
-    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults, $log, $templateCache, $rootScope;
+    var element, scope, $compile, $timeout, $document, confirmationPopoverDefaults, $log, $templateCache, $rootScope, $animate;
 
-    beforeEach(inject(function(_$compile_, _$timeout_, _$document_, _$rootScope_,
+    beforeEach(inject(function(_$compile_, _$timeout_, _$document_, _$rootScope_, _$animate_,
                                _confirmationPopoverDefaults_, _$log_, _$templateCache_) {
       $compile = _$compile_;
       $timeout = _$timeout_;
@@ -190,6 +190,7 @@ describe('Confirm popover', function() {
       confirmationPopoverDefaults = _confirmationPopoverDefaults_;
       $log = _$log_;
       $templateCache = _$templateCache_;
+      $animate = _$animate_;
       scope = $rootScope.$new();
     }));
 
@@ -503,6 +504,18 @@ describe('Confirm popover', function() {
       $(popover).find('.confirm-button').click();
       scope.$apply();
       expect(scope.onConfirm).to.have.been.calledWith('foo');
+    });
+
+    it('should animate the popover', function() {
+      sinon.spy($animate, 'addClass');
+      sinon.spy($animate, 'removeClass');
+      createPopover('<button mwl-confirm animation="true">Test</button>');
+      $(element).click();
+      scope.$apply();
+      expect($animate.addClass.lastCall.args[1]).to.equal('in');
+      $(element).click();
+      scope.$apply();
+      expect($animate.removeClass.lastCall.args[1]).to.equal('in');
     });
 
   });
