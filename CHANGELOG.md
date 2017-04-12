@@ -1,3 +1,13 @@
+<a name="2.5.1"></a>
+## [2.5.1](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.5.0...v2.5.1) (2017-04-12)
+
+
+### Bug Fixes
+
+* **npm:** use main field instead of browser for module entry point ([7bcf94e](https://github.com/mattlewis92/angular-bootstrap-confirm/commit/7bcf94e))
+
+
+
 <a name="2.5.0"></a>
 # [2.5.0](https://github.com/mattlewis92/angular-bootstrap-confirm/compare/2.4.1...v2.5.0) (2016-11-20)
 
