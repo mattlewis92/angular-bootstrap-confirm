@@ -81,6 +81,7 @@ module.exports = angular
       if (!vm.isVisible && !evaluateOuterScopeValue($attrs.isDisabled, false)) {
         popoverLoaded.then(function(popover) {
           popover.css({display: 'block'});
+          popover.css({'z-index': '10000'});
           if (animation) {
             $animate.addClass(popover, 'in');
           }
