@@ -79,6 +79,7 @@ There is a single directive exposed to create the confirmation popover, use it l
   confirm-text="{{ confirmText }}"
   cancel-text="{{ cancelText }}"
   placement="{{ placement }}"
+  append-to="body"
   on-confirm="confirmClicked = true"
   on-cancel="cancelClicked = true"
   confirm-button-type="danger"
@@ -136,6 +137,9 @@ When set will hide the cancel button.
 
 #### popover-class
 A CSS class that will be set on the popover that is opened.
+
+#### append-to
+A CSS class/ID where the confirm dialog should appear
 
 #### animation
 Whether to animate the popover as it fades in and out. Default `false`.
