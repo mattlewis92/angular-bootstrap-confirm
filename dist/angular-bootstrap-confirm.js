@@ -114,7 +114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var popover = angular.element(template);
 	      popover.css('display', 'none');
 	      $compile(popover)(popoverScope);
-	      $document.find('body').append(popover);
+	      angular.element($document[0].querySelector($attrs.appendTo || vm.defaults.appendTo)).append(popover);
 	      return popover;
 	    });
 
@@ -122,7 +122,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    function positionPopover() {
 	      popoverLoaded.then(function(popover) {
-	        var position = positionService.positionElements($element, popover, $attrs.placement || vm.defaults.placement, true);
+	        var position = positionService.positionElements($element, popover, $attrs.placement || vm.defaults.placement);
 	        position.top += 'px';
 	        position.left += 'px';
 	        popover.css(position);
@@ -244,7 +244,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    templateUrl: DEFAULT_POPOVER_URL,
 	    hideConfirmButton: false,
 	    hideCancelButton: false,
-	    animation: false
+	    animation: false,
+	    appendTo: 'body'
 	  })
 
 	  .name;
