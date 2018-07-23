@@ -66,6 +66,7 @@
               confirm-text="{{ vm.confirmText }}"
               cancel-text="{{ vm.cancelText }}"
               placement="{{ placement }}"
+              appendTo="body"
               on-confirm="vm.confirmClicked = true"
               on-cancel="vm.cancelClicked = true"
               confirm-button-type="danger"
@@ -82,6 +83,32 @@
         <div class="alert alert-info" ng-show="vm.confirmClicked">You clicked confirm!</div>
         <div class="alert alert-info" ng-show="vm.cancelClicked">You cancelled!</div>
 
+      </div>
+
+      <h2>Test in scrollable content!</h2>
+      <div style="height: 400px; overflow: auto; position: relative;" class="foo">
+        <div style="height: 1000px; background: red; position: relative;" class="bar">
+          <div style="height: 300px; background: green"></div>
+          <div style="text-align: center">
+            <button
+              class="btn btn-default"
+              mwl-confirm
+              title="{{ vm.title }}"
+              message="{{ vm.message }}"
+              confirm-text="{{ vm.confirmText }}"
+              cancel-text="{{ vm.cancelText }}"
+              placement="{{ placement }}"
+              append-to=".bar"
+              on-confirm="vm.confirmClicked = true"
+              on-cancel="vm.cancelClicked = true"
+              confirm-button-type="danger"
+              cancel-button-type="default"
+              animation="true"
+              ng-click="vm.confirmClicked = false; vm.cancelClicked = false">
+              Show on {{ placement }}
+            </button>
+          </div>
+        </div>
       </div>
 
     </div>
